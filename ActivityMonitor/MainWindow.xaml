@@ -6,17 +6,19 @@
         xmlns:local="clr-namespace:ActivityMonitor"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="347.859" Width="477.195">
+        Title="MainWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize">
 	<Grid>
 		<Label Content="Date" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top"/>
-		<DatePicker HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>
+		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>
 		<Label Content="Start Time" HorizontalAlignment="Left" Margin="40,76,0,0" VerticalAlignment="Top"/>
 		<Label Content="End Time" HorizontalAlignment="Left" Margin="40,107,0,0" VerticalAlignment="Top"/>
 		<Label Content="Type" HorizontalAlignment="Left" Margin="40,154,0,0" VerticalAlignment="Top"/>
 
-		<xctk:TimePicker HorizontalAlignment="Left" Margin="144,82,0,0" VerticalAlignment="Top" Width="99"/>
-		<xctk:TimePicker HorizontalAlignment="Left" Margin="144,113,0,0" VerticalAlignment="Top" Width="99"/>
-		<TextBox HorizontalAlignment="Left" Height="23" Margin="144,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+		<xctk:TimePicker x:Name="tpStartTime" HorizontalAlignment="Left" Margin="144,82,0,0" VerticalAlignment="Top" Width="99"/>
+		<xctk:TimePicker x:Name="tpEndTime" HorizontalAlignment="Left" Margin="144,113,0,0" VerticalAlignment="Top" Width="99"/>
+		<TextBox x:Name="txtType" HorizontalAlignment="Left" Height="23" Margin="144,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="69,205,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="259,205,0,0" VerticalAlignment="Top" Width="75"/>
 
 	</Grid>
 </Window>
