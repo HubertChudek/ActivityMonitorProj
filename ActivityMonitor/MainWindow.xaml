@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize">
-	<Grid>
+	<Grid Loaded="Grid_Loaded">
 		<Label Content="Date" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top"/>
 		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>
 		<Label Content="Start Time" HorizontalAlignment="Left" Margin="40,76,0,0" VerticalAlignment="Top"/>
@@ -17,7 +17,7 @@
 		<xctk:TimePicker x:Name="tpStartTime" HorizontalAlignment="Left" Margin="144,82,0,0" VerticalAlignment="Top" Width="99"/>
 		<xctk:TimePicker x:Name="tpEndTime" HorizontalAlignment="Left" Margin="144,113,0,0" VerticalAlignment="Top" Width="99"/>
 		<TextBox x:Name="txtType" HorizontalAlignment="Left" Height="23" Margin="144,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
-		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="69,205,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="69,205,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
 		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="259,205,0,0" VerticalAlignment="Top" Width="75"/>
 
 	</Grid>
