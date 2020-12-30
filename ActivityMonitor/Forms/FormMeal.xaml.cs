@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.OleDb;
 using System.Windows;
+using Xceed.Wpf.Toolkit;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ActivityMonitor.Forms
 {
@@ -16,6 +18,7 @@ namespace ActivityMonitor.Forms
         public FormMealWindow()
         {
             InitializeComponent();
+            
         }
 
         //metoda otwierająca połaczenie z bazą danych
@@ -45,19 +48,29 @@ namespace ActivityMonitor.Forms
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            //if (CheckIfInputCorrect()) return;
+            if (CheckIfInputCorrect())
+            {
+                return;
+            }
+
             MessageBoxResult confirmResult = MessageBox.Show("Are you sure to save?",
-                "Please confirm.",
-                MessageBoxButton.YesNo);
-            if (confirmResult != MessageBoxResult.Yes) return;
-            //InsertActivityAndNotify();
+                                                            "Please confirm.",
+                                                            MessageBoxButton.YesNo);
+            if (confirmResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            InsertActivityAndNotify();
         }
 
         //metoda wprowadza do bazy informacje z formularza
-        /*private void InsertActivityAndNotify()
+        private void InsertActivityAndNotify()
         {
             string sql =
-                $"insert into activity(AppDate, StartTime, EndTime, Type) values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}' , '{tpEndTime.Value}', '{txtType.Text}')";
+                $"insert into meal(AppDate, StartTime, EndTime, Calories, Type, MealName) " +
+                $"values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}', " +
+                $"'{tpEndTime.Value}', '{int.Parse(txtCalories.Text)}', '{cbxType.Text}', '{txtName.Text}')";
             if (InsertUpdateDelete(sql))
             {
                 MessageBox.Show("Inserted successfully");
@@ -71,14 +84,14 @@ namespace ActivityMonitor.Forms
         //metoda sprawdza czy podane dane są poprawne
         private bool CheckIfInputCorrect()
         {
-            if (string.IsNullOrWhiteSpace(txtType.Text))
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Activity type must be specified.");
+                MessageBox.Show("Product name type must be specified.");
                 return true;
             }
 
             return false;
-        }*/
+        }
 
         //wyświetlanie okienek ze stanem połaczenia na potrzeby testów
         private void ShowConnectionResult()

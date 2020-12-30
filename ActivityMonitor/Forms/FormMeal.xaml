@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ActivityMonitor"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.Forms.FormMealWindow"
         mc:Ignorable="d"
-        Title="FormActivityWindow" Height="377.225" Width="398.18" ResizeMode="CanMinimize">
+        Title="FormActivityWindow" Height="395.892" Width="398.18" ResizeMode="CanMinimize">
 	<Grid Loaded="Grid_Loaded">
 		<Label Content="Date" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top"/>
 		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>
@@ -16,8 +16,8 @@
 
 		<xctk:TimePicker x:Name="tpStartTime" HorizontalAlignment="Left" Margin="144,82,0,0" VerticalAlignment="Top" Width="99"/>
 		<xctk:TimePicker x:Name="tpEndTime" HorizontalAlignment="Left" Margin="144,113,0,0" VerticalAlignment="Top" Width="99"/>
-		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="68,301,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
-		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="258,301,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="72,322,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
+		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="262,322,0,0" VerticalAlignment="Top" Width="75"/>
 		<ComboBox x:Name="cbxType" HorizontalAlignment="Left" Margin="144,158,0,0" VerticalAlignment="Top" Width="207">
 			<ComboBoxItem Background="Transparent" Content="Śniadanie"/>
 			<ComboBoxItem Content="Obiad"/>
@@ -25,8 +25,11 @@
 		</ComboBox>
 		<Label Content="Calories" HorizontalAlignment="Left" Margin="40,225,0,0" VerticalAlignment="Top" Width="51"/>
 		<TextBox x:Name="txtCalories" HorizontalAlignment="Left" Height="23" Margin="144,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
-		<Label Content="Name" HorizontalAlignment="Left" Margin="40,185,0,0" VerticalAlignment="Top"/>
+		<Label Content="Product Name" HorizontalAlignment="Left" Margin="40,185,0,0" VerticalAlignment="Top"/>
 		<TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="144,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+		<Label Content="Quantity" HorizontalAlignment="Left" Margin="40,256,0,0" VerticalAlignment="Top"/>
+		<TextBox HorizontalAlignment="Left" Height="23" Margin="144,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89"/>
+		<ListBox HorizontalAlignment="Left" Height="23" Margin="251,268,0,0" VerticalAlignment="Top" Width="100"/>
 
 	</Grid>
 </Window>
