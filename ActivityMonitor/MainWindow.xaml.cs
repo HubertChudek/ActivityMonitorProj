@@ -1,18 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ActivityMonitor
 {
@@ -31,7 +19,7 @@ namespace ActivityMonitor
 
         public void Connect()
         {
-            if(cn.State == System.Data.ConnectionState.Closed)
+            if (cn.State == System.Data.ConnectionState.Closed)
             {
                 cn.Open();
             }
@@ -40,7 +28,7 @@ namespace ActivityMonitor
         public bool InsertUpdateDelete(string sql)
         {
             Connect();
-            var cmd = new OleDbCommand(sql, cn);
+            OleDbCommand cmd = new OleDbCommand(sql, cn);
             return cmd.ExecuteNonQuery() > 0;
         }
 
@@ -59,21 +47,29 @@ namespace ActivityMonitor
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(txtType.Text))
+            if (string.IsNullOrWhiteSpace(txtType.Text))
             {
                 MessageBox.Show("Activity type must be specified.");
                 return;
             }
 
-            string sql = $"insert into activity(AppDate, StartTime, EndTime, Type) values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}' , '{tpEndTime.Value}', '{txtType.Text}')";
-            if (InsertUpdateDelete(sql))
+            MessageBoxResult confirmResult = MessageBox.Show("Are you sure to save?",
+                                                             "Please confirm.",
+                                                              MessageBoxButton.YesNo);
+            if (confirmResult == MessageBoxResult.Yes)
             {
-                MessageBox.Show("Inserted succefully");
+                string sql = $"insert into activity(AppDate, StartTime, EndTime, Type) values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}' , '{tpEndTime.Value}', '{txtType.Text}')";
+                if (InsertUpdateDelete(sql))
+                {
+                    MessageBox.Show("Inserted succefully");
+                }
+                else
+                {
+                    MessageBox.Show("Insert failed");
+                }
             }
-            else
-            {
-                MessageBox.Show("Insert failed");
-            }
+
+
         }
     }
 }
