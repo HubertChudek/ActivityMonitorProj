@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActivityMonitor"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.Forms.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.Forms.FormActivityWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize">
+        Title="FormActivityWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize">
 	<Grid Loaded="Grid_Loaded">
 		<Label Content="Date" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top"/>
 		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>

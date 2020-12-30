@@ -5,15 +5,15 @@ using System.Windows;
 namespace ActivityMonitor.Forms
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Logika interakcji dla klasy FormActivityWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FormActivityWindow : Window
     {
         //zmienna reprezentująca połączenie z bazą
         private OleDbConnection cn = new OleDbConnection(
             "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=database.accdb"); //connection string
 
-        public MainWindow()
+        public FormActivityWindow()
         {
             InitializeComponent();
         }
