@@ -45,16 +45,16 @@ namespace ActivityMonitor.Forms
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfInputCorrect()) return;
+            //if (CheckIfInputCorrect()) return;
             MessageBoxResult confirmResult = MessageBox.Show("Are you sure to save?",
                 "Please confirm.",
                 MessageBoxButton.YesNo);
             if (confirmResult != MessageBoxResult.Yes) return;
-            InsertActivityAndNotify();
+            //InsertActivityAndNotify();
         }
 
         //metoda wprowadza do bazy informacje z formularza
-        private void InsertActivityAndNotify()
+        /*private void InsertActivityAndNotify()
         {
             string sql =
                 $"insert into activity(AppDate, StartTime, EndTime, Type) values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}' , '{tpEndTime.Value}', '{txtType.Text}')";
@@ -78,7 +78,7 @@ namespace ActivityMonitor.Forms
             }
 
             return false;
-        }
+        }*/
 
         //wyświetlanie okienek ze stanem połaczenia na potrzeby testów
         private void ShowConnectionResult()
