@@ -70,7 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="FormActivity.xaml">
+    <Page Include="Forms\FormActivity.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -78,7 +78,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormActivity.xaml.cs">
+    <Compile Include="Forms\FormActivity.xaml.cs">
       <DependentUpon>FormActivity.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -110,5 +110,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActivityMonitor"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.Forms.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize">
 	<Grid Loaded="Grid_Loaded">
