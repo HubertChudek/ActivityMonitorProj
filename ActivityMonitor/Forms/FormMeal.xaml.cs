@@ -3,7 +3,6 @@ using System.Data.OleDb;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
 
 namespace ActivityMonitor.Forms

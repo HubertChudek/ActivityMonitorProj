@@ -16,9 +16,15 @@
 
 		<xctk:TimePicker x:Name="tpStartTime" HorizontalAlignment="Left" Margin="144,82,0,0" VerticalAlignment="Top" Width="99"/>
 		<xctk:TimePicker x:Name="tpEndTime" HorizontalAlignment="Left" Margin="144,113,0,0" VerticalAlignment="Top" Width="99"/>
-		<TextBox x:Name="txtType" HorizontalAlignment="Left" Height="23" Margin="144,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
 		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="69,205,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
 		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="259,205,0,0" VerticalAlignment="Top" Width="75"/>
+		<ComboBox x:Name="cbxType" HorizontalAlignment="Left" Margin="144,158,0,0" VerticalAlignment="Top" Width="207">
+			<ComboBoxItem Content="Bieganie"/>
+			<ComboBoxItem Content="Jazda na rowerze"/>
+			<ComboBoxItem Content="Pompki"/>
+			<ComboBoxItem Content="Spacer"/>
+			<ComboBoxItem Content="Pływanie"/>
+		</ComboBox>
 
 	</Grid>
 </Window>

@@ -46,11 +46,19 @@ namespace ActivityMonitor.Forms
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckIfInputCorrect()) return;
+            if (CheckIfInputCorrect())
+            {
+                return;
+            }
+
             MessageBoxResult confirmResult = MessageBox.Show("Are you sure to save?",
                 "Please confirm.",
                 MessageBoxButton.YesNo);
-            if (confirmResult != MessageBoxResult.Yes) return;
+            if (confirmResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
             InsertActivityAndNotify();
         }
 
@@ -58,7 +66,9 @@ namespace ActivityMonitor.Forms
         private void InsertActivityAndNotify()
         {
             string sql =
-                $"insert into activity(AppDate, StartTime, EndTime, Type) values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}' , '{tpEndTime.Value}', '{txtType.Text}')";
+                $"insert into activity(AppDate, StartTime, EndTime, Type) " +
+                $"values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', " +
+                $"'{tpStartTime.Value}' , '{tpEndTime.Value}', '{cbxType.Text}')";
             if (InsertUpdateDelete(sql))
             {
                 MessageBox.Show("Inserted successfully");
@@ -72,7 +82,7 @@ namespace ActivityMonitor.Forms
         //metoda sprawdza czy podane dane są poprawne
         private bool CheckIfInputCorrect()
         {
-            if (string.IsNullOrWhiteSpace(txtType.Text))
+            if (string.IsNullOrWhiteSpace(cbxType.Text))
             {
                 MessageBox.Show("Activity type must be specified.");
                 return true;
