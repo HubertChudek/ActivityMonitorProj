@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.OleDb;
 using System.Windows;
+using ExToolkit = Xceed.Wpf.Toolkit;
 
 namespace ActivityMonitor.Forms
 {
@@ -51,7 +52,7 @@ namespace ActivityMonitor.Forms
                 return;
             }
 
-            MessageBoxResult confirmResult = MessageBox.Show("Are you sure to save?",
+            MessageBoxResult confirmResult = ExToolkit.MessageBox.Show("Are you sure to save?",
                 "Please confirm.",
                 MessageBoxButton.YesNo);
             if (confirmResult != MessageBoxResult.Yes)
@@ -71,11 +72,11 @@ namespace ActivityMonitor.Forms
                 $"'{tpStartTime.Value}' , '{tpEndTime.Value}', '{cbxType.Text}')";
             if (InsertUpdateDelete(sql))
             {
-                MessageBox.Show("Inserted successfully");
+                ExToolkit.MessageBox.Show("Inserted successfully");
             }
             else
             {
-                MessageBox.Show("Insert failed");
+                ExToolkit.MessageBox.Show("Insert failed");
             }
         }
 
@@ -84,7 +85,7 @@ namespace ActivityMonitor.Forms
         {
             if (string.IsNullOrWhiteSpace(cbxType.Text))
             {
-                MessageBox.Show("Activity type must be specified.");
+                ExToolkit.MessageBox.Show("Activity type must be specified.");
                 return true;
             }
 

@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using MessageBox = System.Windows.MessageBox;
+using ExToolkit  = Xceed.Wpf.Toolkit;
 
 namespace ActivityMonitor.Forms
 {
@@ -54,7 +55,7 @@ namespace ActivityMonitor.Forms
                 return;
             }
 
-            MessageBoxResult confirmResult = MessageBox.Show("Are you sure to save?",
+            MessageBoxResult confirmResult = ExToolkit.MessageBox.Show("Are you sure to save?",
                 "Please confirm.",
                 MessageBoxButton.YesNo);
             if (confirmResult != MessageBoxResult.Yes)
@@ -74,11 +75,11 @@ namespace ActivityMonitor.Forms
                 $"'{tpEndTime.Value}', '{int.Parse(txtCalories.Text)}', '{cbxType.Text}', '{txtName.Text}')";
             if (InsertUpdateDelete(sql))
             {
-                MessageBox.Show("Inserted successfully");
+                ExToolkit.MessageBox.Show("Inserted successfully");
             }
             else
             {
-                MessageBox.Show("Insert failed");
+                ExToolkit.MessageBox.Show("Insert failed");
             }
         }
 
@@ -87,7 +88,7 @@ namespace ActivityMonitor.Forms
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Product name type must be specified.");
+                ExToolkit.MessageBox.Show("Product name type must be specified.");
                 return true;
             }
 

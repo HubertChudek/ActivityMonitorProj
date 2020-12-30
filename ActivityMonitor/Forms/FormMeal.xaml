@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ActivityMonitor"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.Forms.FormMealWindow"
         mc:Ignorable="d"
-        Title="FormActivityWindow" Height="395.892" Width="398.18" ResizeMode="CanMinimize">
+        Title="FormActivityWindow" Height="395.892" Width="398.18" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
 	<Grid Loaded="Grid_Loaded">
 		<Label Content="Date" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top"/>
 		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>
