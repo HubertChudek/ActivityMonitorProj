@@ -61,7 +61,7 @@ namespace ActivityMonitor
                 string sql = $"insert into activity(AppDate, StartTime, EndTime, Type) values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}' , '{tpEndTime.Value}', '{txtType.Text}')";
                 if (InsertUpdateDelete(sql))
                 {
-                    MessageBox.Show("Inserted succefully");
+                    MessageBox.Show("Inserted successfully");
                 }
                 else
                 {
