@@ -24,7 +24,7 @@
 			<ComboBoxItem Content="Kolacja"/>
 		</ComboBox>
 		<Label Content="Calories" HorizontalAlignment="Left" Margin="40,225,0,0" VerticalAlignment="Top" Width="51"/>
-		<TextBox x:Name="txtCalories" HorizontalAlignment="Left" Height="23" Margin="144,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+		<TextBox x:Name="txtCalories" HorizontalAlignment="Left" Height="23" Margin="144,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" PreviewTextInput="TxtCalories_PreviewTextInput"/>
 		<Label Content="Product Name" HorizontalAlignment="Left" Margin="40,185,0,0" VerticalAlignment="Top"/>
 		<TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="144,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
 		<Label Content="Quantity" HorizontalAlignment="Left" Margin="40,256,0,0" VerticalAlignment="Top"/>

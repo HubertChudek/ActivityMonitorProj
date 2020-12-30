@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
 
@@ -113,6 +115,18 @@ namespace ActivityMonitor.Forms
             dtpDate.SelectedDate = DateTime.Today;
             tpStartTime.Value = DateTime.Now;
             tpEndTime.Value = DateTime.Now.AddHours(1);
+        }
+
+        private void TxtCalories_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            AllowOnlyDigitsAtInput(e);
+        }
+
+        //metoda sprawdza znaki na wejsciu i pozwala wpisać tylko cyfry
+        private static void AllowOnlyDigitsAtInput(TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
