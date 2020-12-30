@@ -18,7 +18,7 @@ namespace ActivityMonitor.Forms
         public FormMealWindow()
         {
             InitializeComponent();
-            
+            InitializeControlsValues();
         }
 
         //metoda otwierająca połaczenie z bazą danych
@@ -54,8 +54,8 @@ namespace ActivityMonitor.Forms
             }
 
             MessageBoxResult confirmResult = MessageBox.Show("Are you sure to save?",
-                                                            "Please confirm.",
-                                                            MessageBoxButton.YesNo);
+                "Please confirm.",
+                MessageBoxButton.YesNo);
             if (confirmResult != MessageBoxResult.Yes)
             {
                 return;
@@ -105,6 +105,14 @@ namespace ActivityMonitor.Forms
             {
                 MessageBox.Show("Error");
             }
+        }
+
+        //metoda inicjalizuje wartości kontrolek domyślną wartością
+        private void InitializeControlsValues()
+        {
+            dtpDate.SelectedDate = DateTime.Today;
+            tpStartTime.Value = DateTime.Now;
+            tpEndTime.Value = DateTime.Now.AddHours(1);
         }
     }
 }

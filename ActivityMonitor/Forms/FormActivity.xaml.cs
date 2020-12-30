@@ -16,6 +16,7 @@ namespace ActivityMonitor.Forms
         public FormActivityWindow()
         {
             InitializeComponent();
+            InitializeControlsValues();
         }
 
         //metoda otwierająca połaczenie z bazą danych
@@ -92,6 +93,14 @@ namespace ActivityMonitor.Forms
             {
                 MessageBox.Show("Error");
             }
+        }
+
+        //metoda inicjalizuje wartości kontrolek domyślną wartością
+        private void InitializeControlsValues()
+        {
+            dtpDate.SelectedDate = DateTime.Today;
+            tpStartTime.Value = DateTime.Now;
+            tpEndTime.Value = DateTime.Now.AddHours(1);
         }
     }
 }
