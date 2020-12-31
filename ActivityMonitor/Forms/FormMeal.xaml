@@ -28,8 +28,13 @@
 		<Label Content="Product Name" HorizontalAlignment="Left" Margin="40,185,0,0" VerticalAlignment="Top"/>
 		<TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="144,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
 		<Label Content="Quantity" HorizontalAlignment="Left" Margin="40,256,0,0" VerticalAlignment="Top"/>
-		<TextBox HorizontalAlignment="Left" Height="23" Margin="144,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89"/>
-		<ListBox HorizontalAlignment="Left" Height="23" Margin="251,268,0,0" VerticalAlignment="Top" Width="100"/>
+		<TextBox x:Name="txtQuantity" HorizontalAlignment="Left" Height="23" Margin="144,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" PreviewTextInput="TextBox_PreviewTextInput"/>
+		<ComboBox x:Name="cbxUnit" HorizontalAlignment="Left" Margin="254,259,0,0" VerticalAlignment="Top" Width="97">
+			<ComboBoxItem Content="grams"/>
+			<ComboBoxItem Content="mililiters"/>
+			<ComboBoxItem Content="portion"/>
+		</ComboBox>
+		<Label Content="Unit" HorizontalAlignment="Left" Margin="217,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.728,0.115"/>
 
 	</Grid>
 </Window>

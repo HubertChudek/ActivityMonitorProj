@@ -122,6 +122,11 @@ namespace ActivityMonitor.Forms
             AllowOnlyDigitsAtInput(e);
         }
 
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            AllowOnlyDigitsAtInput(e);
+        }
+
         //metoda sprawdza znaki na wejsciu i pozwala wpisać tylko cyfry
         private static void AllowOnlyDigitsAtInput(TextCompositionEventArgs e)
         {
