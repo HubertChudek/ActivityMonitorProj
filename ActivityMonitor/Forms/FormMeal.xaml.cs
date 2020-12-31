@@ -70,9 +70,10 @@ namespace ActivityMonitor.Forms
         private void InsertActivityAndNotify()
         {
             string sql =
-                $"insert into meal(AppDate, StartTime, EndTime, Calories, Type, MealName) " +
+                $"insert into meal(AppDate, StartTime, EndTime, Calories, Type, MealName, Quantity, Unit) " +
                 $"values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}', " +
-                $"'{tpEndTime.Value}', '{int.Parse(txtCalories.Text)}', '{cbxType.Text}', '{txtName.Text}')";
+                $"'{tpEndTime.Value}', '{int.Parse(txtCalories.Text)}', '{cbxType.Text}', '{txtName.Text}', " +
+                $"'{int.Parse(txtQuantity.Text)}', '{cbxUnit.Text}')";
             if (InsertUpdateDelete(sql))
             {
                 ExToolkit.MessageBox.Show("Inserted successfully");
