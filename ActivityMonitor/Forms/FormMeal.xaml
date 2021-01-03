@@ -26,7 +26,7 @@
 		<Label Content="Kcal/100g" HorizontalAlignment="Left" Margin="40,225,0,0" VerticalAlignment="Top" Width="86"/>
 		<TextBox x:Name="txtCalories" HorizontalAlignment="Left" Height="23" Margin="144,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" PreviewTextInput="TxtCalories_PreviewTextInput"/>
 		<Label Content="Product Name" HorizontalAlignment="Left" Margin="40,185,0,0" VerticalAlignment="Top"/>
-		<TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="144,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+		<TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="144,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
 		<Label Content="Quantity" HorizontalAlignment="Left" Margin="40,256,0,0" VerticalAlignment="Top"/>
 		<TextBox x:Name="txtQuantity" HorizontalAlignment="Left" Height="23" Margin="144,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68" PreviewTextInput="TextBox_PreviewTextInput"/>
 		<ComboBox x:Name="cbxUnit" HorizontalAlignment="Left" Margin="254,259,0,0" VerticalAlignment="Top" Width="97">
@@ -35,6 +35,7 @@
 			<ComboBoxItem Content="portion"/>
 		</ComboBox>
 		<Label Content="Unit" HorizontalAlignment="Left" Margin="217,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.728,0.115"/>
+		<Button x:Name="btnSearch" Content="S" HorizontalAlignment="Left" Margin="328,188,0,0" VerticalAlignment="Top" Width="23" RenderTransformOrigin="0.329,0.483" Height="23" Click="BtnSearch_Click"/>
 
 	</Grid>
 </Window>

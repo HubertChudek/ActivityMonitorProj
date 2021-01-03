@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -21,6 +24,23 @@ namespace ActivityMonitor.Forms
         {
             InitializeComponent();
             InitializeControlsValues();
+        }
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            var nutri = new NutritionixControl();
+            Nutritionix.Item foo = nutri.LookupNutritionInfo(txtName.Text);
+
+            PopulateFormFields(foo);
+
+            //string toPrint = $"Product name: {foo.Name}, KCal: {foo.NutritionFact_Calories.ToString()}\n"; 
+            //Debug.Print(toPrint);
+        }
+
+        private void PopulateFormFields(Nutritionix.Item item)
+        {
+            txtName.Text = item.Name;
+            txtCalories.Text = item.NutritionFact_Calories.ToString();
         }
 
         //metoda otwierająca połaczenie z bazą danych
