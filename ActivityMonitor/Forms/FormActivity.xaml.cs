@@ -93,5 +93,10 @@ namespace ActivityMonitor.Forms
             tpStartTime.Value = DateTime.Now;
             tpEndTime.Value = DateTime.Now.AddHours(1);
         }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

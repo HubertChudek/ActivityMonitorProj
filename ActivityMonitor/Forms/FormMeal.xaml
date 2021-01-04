@@ -17,7 +17,7 @@
 		<xctk:TimePicker x:Name="tpStartTime" HorizontalAlignment="Left" Margin="144,82,0,0" VerticalAlignment="Top" Width="99"/>
 		<xctk:TimePicker x:Name="tpEndTime" HorizontalAlignment="Left" Margin="144,113,0,0" VerticalAlignment="Top" Width="99"/>
 		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="72,322,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
-		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="262,322,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="262,322,0,0" VerticalAlignment="Top" Width="75" Click="BtnCancel_Click"/>
 		<ComboBox x:Name="cbxType" HorizontalAlignment="Left" Margin="144,158,0,0" VerticalAlignment="Top" Width="207">
 			<ComboBoxItem Background="Transparent" Content="Śniadanie"/>
 			<ComboBoxItem Content="Obiad"/>
