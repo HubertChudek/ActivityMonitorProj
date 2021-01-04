@@ -37,6 +37,7 @@ namespace ActivityMonitor.Forms
             //Debug.Print(toPrint);
         }
 
+        //metoda zapełnia pola formularza danymi pobranymi z API
         private void PopulateFormFields(Nutritionix.Item item)
         {
             txtName.Text = item.Name;
