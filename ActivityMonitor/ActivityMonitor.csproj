@@ -79,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Forms\FormChoose.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\FormMeal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +96,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
+    <Compile Include="Forms\FormChoose.xaml.cs">
+      <DependentUpon>FormChoose.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormMeal.xaml.cs">
       <DependentUpon>FormMeal.xaml</DependentUpon>
     </Compile>
