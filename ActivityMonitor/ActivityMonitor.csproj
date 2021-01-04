@@ -91,6 +91,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DatabaseManager.cs" />
     <Compile Include="Forms\FormMeal.xaml.cs">
       <DependentUpon>FormMeal.xaml</DependentUpon>
     </Compile>
