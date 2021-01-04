@@ -11,34 +11,14 @@ namespace ActivityMonitor.Forms
     public partial class FormActivityWindow : Window
     {
         //zmienna reprezentująca połączenie z bazą
-        private OleDbConnection cn = new OleDbConnection(
-            "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=database.accdb"); //connection string
+        //obiekt zarządzający bazą dancyh
+        private DatabaseManager dbManager = new DatabaseManager();
 
         public FormActivityWindow()
         {
             InitializeComponent();
             InitializeControlsValues();
         }
-
-        //metoda otwierająca połaczenie z bazą danych
-        public void Connect()
-        {
-            if (cn.State == System.Data.ConnectionState.Closed)
-            {
-                cn.Open();
-            }
-        }
-
-        //metoda do wydawania poleceń SQL bazie danych
-        //przyjmuje gotowy string polecenia w SQL
-        //zwaraca true w przypadku powodzenia wykonania zapytania
-        public bool InsertUpdateDelete(string sql)
-        {
-            Connect();
-            OleDbCommand cmd = new OleDbCommand(sql, cn);
-            return cmd.ExecuteNonQuery() > 0;
-        }
-
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -70,7 +50,7 @@ namespace ActivityMonitor.Forms
                 $"insert into activity(AppDate, StartTime, EndTime, Type) " +
                 $"values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', " +
                 $"'{tpStartTime.Value}' , '{tpEndTime.Value}', '{cbxType.Text}')";
-            if (InsertUpdateDelete(sql))
+            if (dbManager.InsertUpdateDelete(sql))
             {
                 ExToolkit.MessageBox.Show("Inserted successfully");
             }
@@ -97,7 +77,7 @@ namespace ActivityMonitor.Forms
         {
             try
             {
-                Connect();
+                dbManager.Connect();
                 MessageBox.Show("Connected");
             }
             catch (Exception)

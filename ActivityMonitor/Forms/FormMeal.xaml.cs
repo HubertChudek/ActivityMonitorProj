@@ -16,10 +16,9 @@ namespace ActivityMonitor.Forms
     /// </summary>
     public partial class FormMealWindow : Window
     {
-        //zmienna reprezentująca połączenie z bazą
-        private OleDbConnection cn = new OleDbConnection(
-            "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=database.accdb"); //connection string
-
+        //obiekt zarządzający bazą dancyh
+        private DatabaseManager dbManager = new DatabaseManager();
+        
         public FormMealWindow()
         {
             InitializeComponent();
@@ -43,26 +42,6 @@ namespace ActivityMonitor.Forms
             txtName.Text = item.Name;
             txtCalories.Text = item.NutritionFact_Calories.ToString();
         }
-
-        //metoda otwierająca połaczenie z bazą danych
-        public void Connect()
-        {
-            if (cn.State == System.Data.ConnectionState.Closed)
-            {
-                cn.Open();
-            }
-        }
-
-        //metoda do wydawania poleceń SQL bazie danych
-        //przyjmuje gotowy string polecenia w SQL
-        //zwaraca true w przypadku powodzenia wykonania zapytania
-        public bool InsertUpdateDelete(string sql)
-        {
-            Connect();
-            OleDbCommand cmd = new OleDbCommand(sql, cn);
-            return cmd.ExecuteNonQuery() > 0;
-        }
-
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -95,7 +74,7 @@ namespace ActivityMonitor.Forms
                 $"values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}', " +
                 $"'{tpEndTime.Value}', '{int.Parse(txtCalories.Text)}', '{cbxType.Text}', '{txtName.Text}', " +
                 $"'{int.Parse(txtQuantity.Text)}', '{cbxUnit.Text}')";
-            if (InsertUpdateDelete(sql))
+            if (dbManager.InsertUpdateDelete(sql))
             {
                 ExToolkit.MessageBox.Show("Inserted successfully");
             }
@@ -122,7 +101,7 @@ namespace ActivityMonitor.Forms
         {
             try
             {
-                Connect();
+                dbManager.Connect();
                 MessageBox.Show("Connected");
             }
             catch (Exception)
