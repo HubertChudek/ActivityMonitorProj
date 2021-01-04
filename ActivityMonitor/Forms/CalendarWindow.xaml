@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ActivityMonitor"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.CalendarWindow"
         mc:Ignorable="d"
-        Title="CalendarWindow" SizeToContent="Height" Width="1417.734" Height="1000">
+        Title="CalendarWindow" SizeToContent="Height" Width="1416" Height="1000">
     <Grid>
         <DockPanel LastChildFill="False" RenderTransformOrigin="0.5,0.5" Margin="0,0,310,861">
             <Label x:Name="labelMonthAndYear" Content="Styczeń, 2018" Height="108" VerticalAlignment="Top" Width="407" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -23,6 +23,7 @@
         </DockPanel>
 
         <WrapPanel x:Name="daysPanel" Margin="0,157,0,0"/>
+
         <WrapPanel Height="108" Margin="1100,0,0,0" VerticalAlignment="Top">
             <Button x:Name="buttonPrevMonth" Content="&lt;" Width="100" Height="109" FontWeight="Bold" FontSize="18" Click="ButtonPrevMonth_Click"/>
             <Button x:Name="buttonToday" Content="Today" Width="100" FontSize="18" FontWeight="Bold" Height="109" Click="ButtonToday_Click"/>

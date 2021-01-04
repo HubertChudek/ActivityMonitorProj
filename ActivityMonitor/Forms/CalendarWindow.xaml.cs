@@ -35,27 +35,34 @@ namespace ActivityMonitor
         private void DisplayCalendar()  
         {
             GenerateDayPanel(42);
-            //AddDayLabelToWrap(GetFirstDayOfCurrentDate(), GetTotalDaysOfCurrentDate());
+            AddDayLabelToWrap(GetFirstDayOfCurrentDate(), GetTotalDaysOfCurrentDate());
             DisplayCurrentDate();
         }
 
-        //metoda 
+        //metoda zwracająca pierwszy dzień miesiąca
         private int GetFirstDayOfCurrentDate()
         {
             DateTime firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
-            return (int) firstDayOfMonth.DayOfWeek + 1;
+            int result = (int) firstDayOfMonth.DayOfWeek;
+            if (result == 0)
+            {
+                result = 7;
+            }
+            return result;
         }
 
+        //metoda zwracająca liczbe dni w miesiacu
         private int GetTotalDaysOfCurrentDate()
         {
             DateTime firstDayOfCurrentDate = new DateTime(currentDate.Year, currentDate.Month, 1);
             return firstDayOfCurrentDate.AddMonths(1).AddDays(-1).Day;
         }
 
+        //metoda wyświetlająca dany miesiąc
         private void DisplayCurrentDate()
         {
             labelMonthAndYear.Content = currentDate.ToString("MMMM, yyyy");
-            AddDayLabelToWrap(GetFirstDayOfCurrentDate(), GetTotalDaysOfCurrentDate());
+            AddDayLabelToWrap(GetFirstDayOfCurrentDate(), GetTotalDaysOfCurrentDate() + GetFirstDayOfCurrentDate() - 1);
 
         }
 
@@ -80,23 +87,29 @@ namespace ActivityMonitor
             DisplayCurrentDate();
         }
 
+
+
         //metoda generująca dni tygodnia danego miesiąca
         private void GenerateDayPanel(int totalDays)
         {
             daysPanel.Children.Clear();
             daysList.Clear();
-            for (int i = 1, loopTo = totalDays; i <= loopTo; i++)
+            WrapPanel wrap;
+            Border border;
+            for (int i = 1; i <= totalDays; i++)
             {
-                var wrap = new WrapPanel();
-                //var lab = new Label();
+                wrap = new WrapPanel();
                 wrap.Name = $"wrap{i}";
-                //lab.Content = $"{i}";
-                //lab.HorizontalContentAlignment = HorizontalAlignment.Right;
-                //wrap.Children.Add(lab);
                 wrap.ItemWidth = 200;
-                wrap.ItemHeight = 200;
-                wrap.Background = new SolidColorBrush(Colors.Orange);
-                daysPanel.Children.Add(wrap);
+                wrap.ItemHeight = 100;
+                border = new Border();
+                border.Name = $"border{i}";
+                border.Width = 200;
+                border.Height = 100;
+                border.BorderBrush = Brushes.Black;
+                border.BorderThickness = new Thickness(1);
+                border.Child = wrap;
+                daysPanel.Children.Add(border);
                 daysList.Add(wrap);
             }
         }
@@ -108,18 +121,23 @@ namespace ActivityMonitor
             {
                 wrap.Children.Clear();
             }
-            //int day = 1;
-            for (int i = 1, loopTo = totalDaysInMonth; i <= loopTo; i++)
+            Label lab;
+            for(int i = 0; i < startDayAtPanel - 1; i++)
             {
-                var lab = new Label();
-                lab.Name = $"lblDay{i}";
-                lab.Content = i;
-                //lab.Width = 200;
-                //lab.Height = 103;
+                lab = new Label();
+                lab.Name = $"emptyLabel{i+1}";
+                lab.Content = "";
+                daysList[i].Children.Add(lab);
+            }
+
+            //przypisanie numerów dnia
+            for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
+            {
+                lab = new Label();
+                lab.Name = $"lblDay{i - startDayAtPanel + 1}";
+                lab.Content = i - startDayAtPanel + 1;
                 lab.HorizontalContentAlignment = HorizontalAlignment.Right;
-                //daysList[(i - 1) + (startDayAtPanel - 1)].Children.Clear();
-                daysList[(i - 1) + (startDayAtPanel - 1)].Children.Add(lab);
-                //day += 1;
+                daysList[i - 1].Children.Add(lab);
             }
         }
 
