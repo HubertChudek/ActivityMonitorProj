@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActivityMonitor"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.Forms.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.Forms.FormActivityWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize">
+        Title="FormActivityWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
 	<Grid Loaded="Grid_Loaded">
 		<Label Content="Date" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top"/>
 		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>
@@ -16,9 +16,15 @@
 
 		<xctk:TimePicker x:Name="tpStartTime" HorizontalAlignment="Left" Margin="144,82,0,0" VerticalAlignment="Top" Width="99"/>
 		<xctk:TimePicker x:Name="tpEndTime" HorizontalAlignment="Left" Margin="144,113,0,0" VerticalAlignment="Top" Width="99"/>
-		<TextBox x:Name="txtType" HorizontalAlignment="Left" Height="23" Margin="144,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
 		<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="69,205,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
-		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="259,205,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="259,205,0,0" VerticalAlignment="Top" Width="75" Click="BtnCancel_Click"/>
+		<ComboBox x:Name="cbxType" HorizontalAlignment="Left" Margin="144,158,0,0" VerticalAlignment="Top" Width="207">
+			<ComboBoxItem Content="Bieganie"/>
+			<ComboBoxItem Content="Jazda na rowerze"/>
+			<ComboBoxItem Content="Pompki"/>
+			<ComboBoxItem Content="Spacer"/>
+			<ComboBoxItem Content="Pływanie"/>
+		</ComboBox>
 
 	</Grid>
 </Window>
