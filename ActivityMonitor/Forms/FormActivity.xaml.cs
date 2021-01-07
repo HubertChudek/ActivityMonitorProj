@@ -96,6 +96,7 @@ namespace ActivityMonitor.Forms
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
+            dbManager.cn.Close();
             this.Close();
         }
     }

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="CalendarWindow" SizeToContent="Height" Width="1416" Height="1000" ResizeMode="NoResize">
     <Grid>
-        <DockPanel LastChildFill="False" RenderTransformOrigin="0.5,0.5" Margin="0,0,310,861">
+        <DockPanel LastChildFill="False" RenderTransformOrigin="0.5,0.5" Margin="0,0,422,861">
             <Label x:Name="labelMonthAndYear" Content="Styczeń, 2018" Height="108" VerticalAlignment="Top" Width="407" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </DockPanel>
 
@@ -24,10 +24,11 @@
 
         <WrapPanel x:Name="daysPanel" Margin="0,157,0,0"/>
 
-        <WrapPanel Height="108" Margin="1100,0,0,0" VerticalAlignment="Top">
-            <Button x:Name="buttonPrevMonth" Content="&lt;" Width="100" Height="109" FontWeight="Bold" FontSize="18" Click="ButtonPrevMonth_Click"/>
+        <WrapPanel Height="108" Margin="973,0,0,0" VerticalAlignment="Top">
+            <Button x:Name="buttonPrevMonth" Content="&lt;" Width="100" FontWeight="Bold" FontSize="18" Click="ButtonPrevMonth_Click"/>
             <Button x:Name="buttonToday" Content="Today" Width="100" FontSize="18" FontWeight="Bold" Height="109" Click="ButtonToday_Click"/>
             <Button x:Name="buttonNextMonth" Content="&gt;" Width="100" FontSize="18" FontWeight="Bold" Height="109" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ButtonNextMonth_Click"/>
+            <Button x:Name="buttonAddEvent" Content="Add activity" Width="114" FontSize="18" FontWeight="Bold" Click="ButtonAddEvent_Click"/>
         </WrapPanel>
 
     </Grid>
