@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace ActivityMonitor
 {
@@ -19,8 +20,11 @@ namespace ActivityMonitor
     /// </summary>
     public partial class CalendarWindow : Window
     {
+
         //lista dni w danym miesiacu
         private List<WrapPanel> daysList = new List<WrapPanel>();
+        private DatabaseManager dm = new DatabaseManager();
+        private ActivityMonitor.Forms.FormActivityWindow activityWindow = new Forms.FormActivityWindow();
 
        //aktualna data
         private DateTime currentDate = DateTime.Today;
@@ -38,6 +42,65 @@ namespace ActivityMonitor
             AddDayLabelToWrap(GetFirstDayOfCurrentDate(), GetTotalDaysOfCurrentDate());
             DisplayCurrentDate();
         }
+
+        //metoda dodająca nową aktywnosc
+        private void AddNewActivity()
+        {
+            ActivityMonitor.Forms.FormChoose chooseWindow = new Forms.FormChoose();
+            chooseWindow.ShowDialog();
+            DisplayCurrentDate();
+        }
+
+        //metoda wyświetlająca aktywności w kalendarzu                            !!!!!!!!!!!!!!  NIE DZIAŁA POPRAWNIEE  !!!!!!!!!!!!!!!
+        private void AddActivityToWrapPanel(int startDayAtWrapNumber)
+        {
+            string format = "yyyy-MM-dd";
+            DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            //String startDateAsString = startDate.ToShortDateString();
+            //String endDateAsString = endDate.ToShortDateString();
+            String sql = $"SELECT * FROM activity WHERE AppDate BETWEEN #{startDate.ToString(format)}# AND #{endDate.ToString(format)}#";
+            DataTable dt = dm.QueryAsDataTable(sql);
+
+            foreach(DataRow row in dt.Rows)
+            {
+                //DateTime date = new DateTime(row["AppDate"]);
+                String date = row["AppDate"].ToString();
+                DateTime appDay = DateTime.Parse(date);
+                Button activity = new Button();
+                activity.Name = $"activity{row["ID"]}";
+                activity.Content = row["Type"];
+                activity.Visibility = Visibility.Visible;
+                daysList[appDay.Day + (startDayAtWrapNumber - 1)].Children.Add(activity);
+            }
+        }
+        
+
+            /*
+        private void displayValuesFromDataBase(int startDayAtWrapNumber)
+        {
+            List<String> activityName = new List<string>();
+            List<String> activityDate = new List<string>();
+            DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            String sql = $"SELECT * FROM activity"; //WHERE AppDate BETWEEN #{startDate.ToShortDateString()}# AND #{endDate.ToShortDateString()}#";
+
+            dm.getValuesFromDataBase(sql, activityName, activityDate);
+
+            foreach(String element in activityDate){
+                int counter = 0;
+                DateTime appDay = DateTime.Parse((string)element);
+                Button activity = new Button();
+                //activity.Name = $"activity{row["ID"]}";
+                activity.Content = activityName[counter];
+                activity.Width = 100;
+                activity.Height = 100;
+                daysList[appDay.Day + (startDayAtWrapNumber - 1)].Children.Add(activity);
+                activity.Visibility = 0;
+                counter += 1;
+            }
+        }
+        */
 
         //metoda zwracająca pierwszy dzień miesiąca
         private int GetFirstDayOfCurrentDate()
@@ -61,9 +124,12 @@ namespace ActivityMonitor
         //metoda wyświetlająca dany miesiąc
         private void DisplayCurrentDate()
         {
+            int firstDayAtWrapNumber = GetFirstDayOfCurrentDate();
+            int totalDays = GetTotalDaysOfCurrentDate() + GetFirstDayOfCurrentDate() - 1;
             labelMonthAndYear.Content = currentDate.ToString("MMMM, yyyy");
-            AddDayLabelToWrap(GetFirstDayOfCurrentDate(), GetTotalDaysOfCurrentDate() + GetFirstDayOfCurrentDate() - 1);
-
+            AddDayLabelToWrap(firstDayAtWrapNumber, totalDays);
+            AddActivityToWrapPanel(firstDayAtWrapNumber);
+            //displayValuesFromDataBase(firstDayAtWrapNumber);
         }
 
         //metoda ustawuająca miesiąc na poprzedni
@@ -99,9 +165,10 @@ namespace ActivityMonitor
             for (int i = 1; i <= totalDays; i++)
             {
                 wrap = new WrapPanel();
-                wrap.Name = $"wrap{i}";
+                wrap.Name = $"wrap{i}"; 
                 wrap.ItemWidth = 200;
                 wrap.ItemHeight = 100;
+                wrap.Cursor = Cursors.Hand;
                 border = new Border();
                 border.Name = $"border{i}";
                 border.Width = 200;
@@ -157,5 +224,9 @@ namespace ActivityMonitor
             Today();
         }
 
+        private void ButtonAddEvent_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewActivity();
+        }
     }
 }

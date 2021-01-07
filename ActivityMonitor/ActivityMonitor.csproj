@@ -101,7 +101,7 @@
     </Compile>
     <Compile Include="Forms\CalendarWindow.xaml.cs">
       <DependentUpon>CalendarWindow.xaml</DependentUpon>
-    </Compile> 
+    </Compile>
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Forms\FormChoose.xaml.cs">
       <DependentUpon>FormChoose.xaml</DependentUpon>
