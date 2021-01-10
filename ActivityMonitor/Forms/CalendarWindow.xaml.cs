@@ -24,7 +24,6 @@ namespace ActivityMonitor
         //lista dni w danym miesiacu
         private List<WrapPanel> daysList = new List<WrapPanel>();
         private DatabaseManager dm = new DatabaseManager();
-        private ActivityMonitor.Forms.FormActivityWindow activityWindow = new Forms.FormActivityWindow();
 
        //aktualna data
         private DateTime currentDate = DateTime.Today;
@@ -54,7 +53,7 @@ namespace ActivityMonitor
         //metoda wyświetlająca aktywności w kalendarzu                            !!!!!!!!!!!!!!  NIE DZIAŁA POPRAWNIEE  !!!!!!!!!!!!!!!
         private void AddActivityToWrapPanel(int startDayAtWrapNumber)
         {
-            string format = "yyyy-MM-dd";
+            string format = "dd-MM-yyyy";
             DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
             //String startDateAsString = startDate.ToShortDateString();
@@ -166,9 +165,10 @@ namespace ActivityMonitor
             {
                 wrap = new WrapPanel();
                 wrap.Name = $"wrap{i}"; 
-                wrap.ItemWidth = 200;
+                wrap.ItemWidth = 200;   
                 wrap.ItemHeight = 100;
                 wrap.Cursor = Cursors.Hand;
+                wrap.MouseDown += new MouseButtonEventHandler(this.panelClick);
                 border = new Border();
                 border.Name = $"border{i}";
                 border.Width = 200;
@@ -209,6 +209,11 @@ namespace ActivityMonitor
         }
 
         
+        private void panelClick(object sender, RoutedEventArgs e)
+        {
+            AddNewActivity();
+        }
+
         private void ButtonPrevMonth_Click(object sender, RoutedEventArgs e)
         {
             PreviousMonth();
