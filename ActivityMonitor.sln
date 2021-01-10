@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1169
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityMonitor", "ActivityMonitor\ActivityMonitor.csproj", "{027C58FF-904A-48DE-9B4F-1440730FB40D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nGantt", "nGantt\nGantt.csproj", "{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{027C58FF-904A-48DE-9B4F-1440730FB40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{027C58FF-904A-48DE-9B4F-1440730FB40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{027C58FF-904A-48DE-9B4F-1440730FB40D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
