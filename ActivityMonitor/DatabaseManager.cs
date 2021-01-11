@@ -45,7 +45,6 @@ namespace ActivityMonitor
             cn.Open();
             OleDbDataAdapter da = new OleDbDataAdapter(sql, cn);
             DataSet ds = new DataSet(); 
-            //DataTable dt = new DataTable();
             da.Fill(ds, "result");
             cn.Close();
             return ds.Tables["result"];
