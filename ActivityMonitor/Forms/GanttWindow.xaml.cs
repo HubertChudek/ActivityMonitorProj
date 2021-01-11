@@ -23,6 +23,12 @@ namespace ActivityMonitor.Forms
             InitializeComponent();
         }
 
+        public GanttWindow(DateTime calendarDate)
+        {
+            InitializeComponent();
+            dateTimePicker.Value = calendarDate;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GantLenght = 1;
