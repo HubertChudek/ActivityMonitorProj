@@ -185,6 +185,7 @@ namespace ActivityMonitor
             for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
             {
                 lab = new Label();
+                lab.Background = Brushes.Aqua;
                 lab.Name = $"lblDay{i - startDayAtPanel + 1}";
                 lab.Content = i - startDayAtPanel + 1;
                 lab.VerticalAlignment = VerticalAlignment.Top;
@@ -260,6 +261,11 @@ namespace ActivityMonitor
         private void ButtonAddEvent_Click(object sender, RoutedEventArgs e)
         {
             AddNewActivity();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }
