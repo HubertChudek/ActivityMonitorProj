@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
+using System.Diagnostics;
+using System.Net;
+using ActivityMonitor.Forms;
 
 namespace ActivityMonitor
 {
@@ -230,7 +233,13 @@ namespace ActivityMonitor
         
         private void panelClick(object sender, RoutedEventArgs e)
         {
-            AddNewActivity();
+            var label = ((StackPanel) sender).Children.OfType<Label>().FirstOrDefault();
+            string dateString =
+                $"{currentDate.Year.ToString()}-{currentDate.Month.ToString()}-{label.Content.ToString()}";
+            DateTime date = DateTime.Parse(dateString);
+            GanttWindow ganttView = new GanttWindow(date);
+            //GanttWindow ganttView = new GanttWindow();
+            ganttView.Show();
         }
 
         private void ButtonPrevMonth_Click(object sender, RoutedEventArgs e)

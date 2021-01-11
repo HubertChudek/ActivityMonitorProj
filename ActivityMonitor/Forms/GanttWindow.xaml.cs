@@ -17,6 +17,7 @@ namespace ActivityMonitor.Forms
         private int GantLenght { get; set; }
         private ObservableCollection<ContextMenuItem> ganttTaskContextMenuItems = new ObservableCollection<ContextMenuItem>();
         private ObservableCollection<SelectionContextMenuItem> selectionContextMenuItems = new ObservableCollection<SelectionContextMenuItem>();
+        private DateTime startUpDate;
 
         public GanttWindow()
         {
@@ -26,14 +27,14 @@ namespace ActivityMonitor.Forms
         public GanttWindow(DateTime calendarDate)
         {
             InitializeComponent();
-            dateTimePicker.Value = calendarDate;
+            this.startUpDate = calendarDate;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GantLenght = 1;
             //dateTimePicker.Value = DateTime.Parse("2012-02-01");
-            dateTimePicker.Value = DateTime.Today;
+            dateTimePicker.Value = startUpDate;
             DateTime minDate = (DateTime)dateTimePicker.Value;
             DateTime maxDate = minDate.AddDays(GantLenght);
 
