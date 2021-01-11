@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using nGantt.GanttChart;
+﻿using nGantt.GanttChart;
 using nGantt.PeriodSplitter;
-using Xceed.Wpf.Toolkit;
+using System;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Windows;
+using System.Windows.Media;
 using MessageBox = System.Windows.MessageBox;
 
 namespace ActivityMonitor.Forms
@@ -36,8 +26,8 @@ namespace ActivityMonitor.Forms
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GantLenght = 1;
-            dateTimePicker.Value = DateTime.Parse("2012-02-01");
-            //eTimePicker.DisplayDate = DateTime.Today;
+            //dateTimePicker.Value = DateTime.Parse("2012-02-01");
+            dateTimePicker.Value = DateTime.Today;
             DateTime minDate = (DateTime)dateTimePicker.Value;
             DateTime maxDate = minDate.AddDays(GantLenght);
 
@@ -80,7 +70,7 @@ namespace ActivityMonitor.Forms
             MessageBox.Show("Delete clicked for task " + ganttTask.Name);
         }
 
-        void ganttControl1_GanttRowAreaSelected(object sender, PeriodEventArgs e)
+        private void ganttControl1_GanttRowAreaSelected(object sender, PeriodEventArgs e)
         {
             MessageBox.Show(e.SelectionStart.ToString() + " -> " + e.SelectionEnd.ToString());
         }
@@ -88,9 +78,13 @@ namespace ActivityMonitor.Forms
         private Brush DetermineBackground(TimeLineItem timeLineItem)
         {
             if (timeLineItem.End.Date.DayOfWeek == DayOfWeek.Saturday || timeLineItem.End.Date.DayOfWeek == DayOfWeek.Sunday)
+            {
                 return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightBlue);
+            }
             else
+            {
                 return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent);
+            }
         }
 
         private void CreateData(DateTime minDate, DateTime maxDate)
@@ -99,34 +93,52 @@ namespace ActivityMonitor.Forms
             ganttControl1.Initialize(minDate, maxDate);
 
             // Create timelines and define how they should be presented
-            //ganttControl1.CreateTimeLine(new PeriodYearSplitter(minDate, maxDate), FormatYear);
-            //ganttControl1.CreateTimeLine(new PeriodMonthSplitter(minDate, maxDate), FormatMonth);
-            //var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDay);
-            //ganttControl1.CreateTimeLine(new PeriodDaySplitter(minDate, maxDate), FormatDayName);
-            var gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodHourSplitter(minDate, maxDate), FormatHour);
+            TimeLine gridLineTimeLine = ganttControl1.CreateTimeLine(new PeriodHourSplitter(minDate, maxDate), FormatHour);
 
             // Set the timeline to atatch gridlines to
             ganttControl1.SetGridLinesTimeline(gridLineTimeLine, DetermineBackground);
 
-            // Create and data
-            var rowgroup1 = ganttControl1.CreateGanttRowGroup("HeaderdGanttRowGroup");
-            var row1 = ganttControl1.CreateGanttRow(rowgroup1, "GanttRow 1");
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-02-01"), End = DateTime.Parse("2012-03-01"), Name = "GanttRow 1:GanttTask 1", TaskProgressVisibility = System.Windows.Visibility.Hidden });
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-03-05"), End = DateTime.Parse("2012-05-01"), Name = "GanttRow 1:GanttTask 2" });
-            ganttControl1.AddGanttTask(row1, new GanttTask() { Start = DateTime.Parse("2012-06-01"), End = DateTime.Parse("2012-06-15"), Name = "GanttRow 1:GanttTask 3" });
+            // Create rows and data
+            GanttRowGroup rowgroup1 = ganttControl1.CreateGanttRowGroup();
+            GanttRow row1 = ganttControl1.CreateGanttRow(rowgroup1, "Training");
+            GanttRow row2 = ganttControl1.CreateGanttRow(rowgroup1, "Meal");
+            GenerateEventsFromTable(row1, minDate, maxDate, "activity");
+            GenerateEventsFromTable(row2, minDate, maxDate, "meal");
+        }
 
-            var rowgroup2 = ganttControl1.CreateGanttRowGroup("ExpandableGanttRowGroup", true);
-            var row2 = ganttControl1.CreateGanttRow(rowgroup2, "GanttRow 2");
-            var row3 = ganttControl1.CreateGanttRow(rowgroup2, "GanttRow 3");
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-02-10"), End = DateTime.Parse("2012-03-10"), Name = "GanttRow 2:GanttTask 1" });
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-03-25"), End = DateTime.Parse("2012-05-10"), Name = "GanttRow 2:GanttTask 2" });
-            ganttControl1.AddGanttTask(row2, new GanttTask() { Start = DateTime.Parse("2012-06-10"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 2:GanttTask 3", PercentageCompleted = 0.375 });
-            ganttControl1.AddGanttTask(row3, new GanttTask() { Start = DateTime.Parse("2012-01-07"), End = DateTime.Parse("2012-09-15"), Name = "GanttRow 3:GanttTask 1", PercentageCompleted = 0.5 });
+        private void GenerateEventsFromTable(GanttRow row, DateTime minDate, DateTime maxDate, string tableName)
+        {
+            string dateFormat = "yyyy-MM-dd";
+            string sql = $"SELECT * FROM {tableName} WHERE AppDate BETWEEN #{minDate.ToString(dateFormat)}# AND #{maxDate.ToString(dateFormat)}#";
+            DatabaseManager dbManager = new DatabaseManager();
+            DataTable dt = dbManager.QueryAsDataTable(sql);
 
-            var rowgroup3 = ganttControl1.CreateGanttRowGroup();
-            var row4 = ganttControl1.CreateGanttRow(rowgroup3, "GanttRow 4");
-            ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-02-14"), End = DateTime.Parse("2012-02-27"), Name = "GanttRow 4:GanttTask 1", PercentageCompleted = 1 });
-            ganttControl1.AddGanttTask(row4, new GanttTask() { Start = DateTime.Parse("2012-04-8"), End = DateTime.Parse("2012-09-19"), Name = "GanttRow 4:GanttTask 2" });
+            foreach (DataRow dataRow in dt.Rows)
+            {
+                string date = dataRow["AppDate"].ToString();
+                string startTime = dataRow["StartTime"].ToString();
+                string endTime = dataRow["EndTime"].ToString();
+
+                DateTime startDay = DateTime.Parse(startTime);
+                DateTime entDay = DateTime.Parse(endTime);
+                string eventName = " ";
+                if (tableName == "activity")
+                {
+                    eventName = dataRow["Type"].ToString();
+                }
+                else if (tableName == "meal")
+                {
+                    eventName = dataRow["Type"].ToString() + ": " + dataRow["MealName"].ToString();
+                }
+
+                ganttControl1.AddGanttTask(row, new GanttTask()
+                {
+                    Start = startDay,
+                    End = entDay,
+                    Name = eventName,
+                    TaskProgressVisibility = System.Windows.Visibility.Hidden
+                });
+            }
         }
 
         private string FormatYear(Period period)

@@ -12,7 +12,7 @@
 		<Button x:Name="btnNext" Content="&gt;" HorizontalAlignment="Left" Margin="349,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnNext_Click"/>
 
 		<nGantt:GanttControl x:Name="ganttControl1" HorizontalAlignment="Left" Height="397" Margin="10,44,0,0" VerticalAlignment="Top" Width="762"/>
-		<xctk:DateTimePicker x:Name="dateTimePicker" HorizontalAlignment="Left" Margin="101,10,0,0" VerticalAlignment="Top" Width="231" ValueChanged="DateTimePicker_ValueChanged"/>
+		<xctk:DateTimePicker x:Name="dateTimePicker" HorizontalAlignment="Left" Margin="101,10,0,0" VerticalAlignment="Top" Width="231" ValueChanged="DateTimePicker_ValueChanged" ShowButtonSpinner="False"/>
 
 	</Grid>
 </Window>
