@@ -40,7 +40,7 @@ namespace ActivityMonitor.Forms
         private void PopulateFormFields(Nutritionix.Item item)
         {
             txtName.Text = item.Name;
-            txtCalories.Text = item.NutritionFact_Calories.ToString();
+            txtCalories.Text = Math.Floor((decimal)item.NutritionFact_Calories).ToString();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)

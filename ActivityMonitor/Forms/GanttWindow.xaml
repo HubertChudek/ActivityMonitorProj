@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ActivityMonitor.Forms"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:nGantt="clr-namespace:nGantt;assembly=nGantt" x:Class="ActivityMonitor.Forms.GanttWindow"
+        mc:Ignorable="d"
+        Title="GanttWindow" Height="494" Width="800" Loaded="Window_Loaded">
+	<Grid>
+		<Button x:Name="btnPrevious" Content="&lt;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnPrevious_Click"/>
+		<Button x:Name="btnNext" Content="&gt;" HorizontalAlignment="Left" Margin="349,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnNext_Click"/>
+
+		<nGantt:GanttControl x:Name="ganttControl1" HorizontalAlignment="Left" Height="397" Margin="10,44,0,0" VerticalAlignment="Top" Width="762"/>
+		<xctk:DateTimePicker x:Name="dateTimePicker" HorizontalAlignment="Left" Margin="101,10,0,0" VerticalAlignment="Top" Width="231" ValueChanged="DateTimePicker_ValueChanged" ShowButtonSpinner="False"/>
+
+	</Grid>
+</Window>

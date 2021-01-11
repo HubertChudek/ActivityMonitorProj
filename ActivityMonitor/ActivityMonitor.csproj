@@ -113,8 +113,15 @@
       <DependentUpon>FormActivity.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Forms\GanttWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\GanttWindow.xaml.cs">
+      <DependentUpon>GanttWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NutritionixControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -142,6 +149,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\nGantt\nGantt.csproj">
+      <Project>{CCC54F28-5D20-4AB3-A1A8-C62CD2DA3AE7}</Project>
+      <Name>nGantt</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
