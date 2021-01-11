@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
+using System.Diagnostics;
+using System.Net;
+using ActivityMonitor.Forms;
 
 namespace ActivityMonitor
 {
@@ -182,6 +185,7 @@ namespace ActivityMonitor
             for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
             {
                 lab = new Label();
+                lab.Background = Brushes.Aqua;
                 lab.Name = $"lblDay{i - startDayAtPanel + 1}";
                 lab.Content = i - startDayAtPanel + 1;
                 lab.VerticalAlignment = VerticalAlignment.Top;
@@ -230,7 +234,13 @@ namespace ActivityMonitor
         
         private void panelClick(object sender, RoutedEventArgs e)
         {
-            AddNewActivity();
+            var label = ((StackPanel) sender).Children.OfType<Label>().FirstOrDefault();
+            string dateString =
+                $"{currentDate.Year.ToString()}-{currentDate.Month.ToString()}-{label.Content.ToString()}";
+            DateTime date = DateTime.Parse(dateString);
+            GanttWindow ganttView = new GanttWindow(date);
+            //GanttWindow ganttView = new GanttWindow();
+            ganttView.Show();
         }
 
         private void ButtonPrevMonth_Click(object sender, RoutedEventArgs e)
@@ -251,6 +261,11 @@ namespace ActivityMonitor
         private void ButtonAddEvent_Click(object sender, RoutedEventArgs e)
         {
             AddNewActivity();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }
