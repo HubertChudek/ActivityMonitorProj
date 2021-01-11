@@ -18,7 +18,7 @@ namespace ActivityMonitor.Forms
     {
         //obiekt zarządzający bazą dancyh
         private DatabaseManager dbManager = new DatabaseManager();
-        
+
         public FormMealWindow()
         {
             InitializeComponent();
@@ -69,11 +69,12 @@ namespace ActivityMonitor.Forms
         //metoda wprowadza do bazy informacje z formularza
         private void InsertActivityAndNotify()
         {
+
             string sql =
-                $"insert into meal(AppDate, StartTime, EndTime, Calories, Type, MealName, Quantity, Unit) " +
-                $"values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}', " +
-                $"'{tpEndTime.Value}', '{int.Parse(txtCalories.Text)}', '{cbxType.Text}', '{txtName.Text}', " +
-                $"'{int.Parse(txtQuantity.Text)}', '{cbxUnit.Text}')";
+            $"insert into meal(AppDate, StartTime, EndTime, Calories, Type, MealName, Quantity, Unit) " +
+            $"values('{dtpDate.SelectedDate.Value.Date.ToShortDateString()}', '{tpStartTime.Value}', " +
+            $"'{tpEndTime.Value}', '{int.Parse(txtCalories.Text)}', '{cbxType.Text}', '{txtName.Text}', " +
+            $"'{int.Parse(txtQuantity.Text)}', '{cbxUnit.Text}')";
             if (dbManager.InsertUpdateDelete(sql))
             {
                 ExToolkit.MessageBox.Show("Inserted successfully");
