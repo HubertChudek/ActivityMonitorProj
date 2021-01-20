@@ -91,11 +91,11 @@ namespace ActivityMonitor.Forms
         {
             if (timeLineItem.End.Date.DayOfWeek == DayOfWeek.Saturday || timeLineItem.End.Date.DayOfWeek == DayOfWeek.Sunday)
             {
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightBlue);
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightCoral);
             }
             else
             {
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent);
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightSteelBlue);
             }
         }
 
