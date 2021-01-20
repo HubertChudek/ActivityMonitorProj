@@ -10,6 +10,8 @@ namespace nGantt.GanttChart
     {
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+        public int AppID { get; set; }
+        public string Table { get; set; }
         public string Name { get; set; }
         public Visibility TaskProgressVisibility { get; set; }
         private double percentageCompleted;
@@ -17,7 +19,7 @@ namespace nGantt.GanttChart
         public GanttTask()
         {
             IsEnabled = true;
-            TaskProgressVisibility = Visibility.Visible;
+            TaskProgressVisibility = Visibility.Hidden;
         }
 
         public static readonly DependencyProperty IsSelectedProperty =
