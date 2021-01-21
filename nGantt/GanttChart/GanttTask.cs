@@ -12,6 +12,7 @@ namespace nGantt.GanttChart
         public DateTime End { get; set; }
         public int AppID { get; set; }
         public string Table { get; set; }
+        public string Color { get; set; } = "#30DB00";
         public string Name { get; set; }
         public Visibility TaskProgressVisibility { get; set; }
         private double percentageCompleted;
