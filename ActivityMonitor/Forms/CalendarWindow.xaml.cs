@@ -30,6 +30,7 @@ namespace ActivityMonitor
 
        //aktualna data
         private DateTime currentDate = DateTime.Today;
+        private int month = DateTime.Today.Month;
 
         public CalendarWindow()
         {
@@ -51,30 +52,7 @@ namespace ActivityMonitor
             chooseWindow.ShowDialog();
             DisplayCurrentDate();
         }
-/*
-        //metoda wyświetlająca aktywności w kalendarzu                            !!!!!!!!!!!!!!  NIE DZIAŁA POPRAWNIEE  !!!!!!!!!!!!!!!
-        private void AddActivityToWrapPanel(int startDayAtWrapNumber)
-        {
-            string format = "dd-MM-yyyy";
-            DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
-            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-            String sql = $"SELECT * FROM activity WHERE AppDate BETWEEN #{startDate.ToString(format)}# AND #{endDate.ToString(format)}#";
-            DataTable dt = dm.QueryAsDataTable(sql);
-
-            foreach(DataRow row in dt.Rows)
-            {
-                String date = row["AppDate"].ToString();
-                DateTime appDay = DateTime.Parse(date);
-                Button activity = new Button();
-                activity.Name = $"activity{row["ID"]}";
-                activity.Content = row["Type"];
-                //activity.Visibility = Visibility.Visible;
-                activity.HorizontalContentAlignment = HorizontalAlignment.Center;
-
-                daysList[(appDay.Day -1) + (startDayAtWrapNumber - 1)].Children.Add(activity);
-            }
-        }
-*/     
+    
         //metoda zwracająca pierwszy dzień miesiąca
         private int GetFirstDayOfCurrentDate()
         {
@@ -101,7 +79,7 @@ namespace ActivityMonitor
             int totalDays = GetTotalDaysOfCurrentDate() + GetFirstDayOfCurrentDate() - 1;
             labelMonthAndYear.Content = currentDate.ToString("MMMM, yyyy");
             AddDayLabelToWrap(firstDayAtWrapNumber, totalDays);
-            //AddActivityToWrapPanel(firstDayAtWrapNumber);   
+            colorCurrentDay(firstDayAtWrapNumber, totalDays);  
         }
 
         //metoda ustawuająca miesiąc na poprzedni
@@ -134,15 +112,18 @@ namespace ActivityMonitor
             daysList.Clear();
             StackPanel wrap;
             Border border;
+
             for (int i = 1; i <= totalDays; i++)
             {
-
+            
                 wrap = new StackPanel();
                 wrap.Name = $"wrap{i}"; 
                 wrap.Width = 200;   
                 wrap.Height = 120;
-                wrap.Cursor = Cursors.Hand;
-                wrap.MouseDown += new MouseButtonEventHandler(this.panelClick);
+                //wrap.Cursor = Cursors.Hand;
+                //wrap.MouseDown += new MouseButtonEventHandler(this.panelClick);
+
+
                 border = new Border();
                 border.Name = $"border{i}";
                 border.Width = 200;
@@ -150,6 +131,7 @@ namespace ActivityMonitor
                 border.BorderBrush = Brushes.Black;
                 border.BorderThickness = new Thickness(1);
                 border.Child = wrap;
+
                 daysPanel.Children.Add(border);
                 daysList.Add(wrap);
             }
@@ -170,18 +152,11 @@ namespace ActivityMonitor
             foreach (StackPanel wrap in daysList)
             {
                 wrap.Children.Clear();
+                wrap.Background = new SolidColorBrush(Colors.White);
             }
             Label lab;
-            for(int i = 0; i < startDayAtPanel - 1; i++)
-            {
-                lab = new Label();
-                lab.Name = $"emptyLabel{i+1}";
-                lab.Content = "";
-                daysList[i].Children.Add(lab);
 
-            }
-
-            //przypisanie numerów dnia i aktywnosci do danego dnia
+            //przypisanie numerów dnia do danego dnia
             for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
             {
                 lab = new Label();
@@ -192,6 +167,10 @@ namespace ActivityMonitor
                 lab.HorizontalContentAlignment = HorizontalAlignment.Right;
                 daysList[i - 1].Children.Add(lab);
 
+            }
+            //przypisanie aktywnosci do danego dnia
+            for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
+            {
                 string format = "dd-MM-yyyy";
                 DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
                 DateTime endDate = startDate.AddMonths(1).AddDays(-1);
@@ -201,15 +180,31 @@ namespace ActivityMonitor
                 dtActivity = dm.QueryAsDataTable(sqlActivity);
                 dtMeal = dm.QueryAsDataTable(sqlMeal);
 
-                addActivity(dtActivity, i, firstDayAtWrapNumber);
-                addActivity(dtMeal, i, firstDayAtWrapNumber);
+                addActivity(dtActivity, "activity", i, firstDayAtWrapNumber);
+                addActivity(dtMeal, "meal", i, firstDayAtWrapNumber);
             }
         }
         
-        private void addActivity(DataTable dt, int iterator, int firstDay)
+        //metoda kolorująca dzisiejszy dzien na wskazany kolor
+        private void colorCurrentDay(int startDayAtPanel, int totalDaysInMonth)
+        {
+            StackPanel stack = new StackPanel();
+
+            for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
+            {
+                if (i == DateTime.Today.Day && currentDate.Month == month)
+                {
+                    stack = daysList[(i - 1) + (startDayAtPanel - 1)];
+                    stack.Background = new SolidColorBrush(Colors.Purple);
+                }
+            }
+        }
+
+        //metoda wyświetlająca aktywnosci w kalendarzu
+        private void addActivity(DataTable dt, string dataType, int iterator, int firstDay)
         {
             foreach (DataRow row in dt.Rows)
-            {
+            {   
                 String date = row["AppDate"].ToString();
                 DateTime appDay = DateTime.Parse(date);
                 if (appDay.Day == iterator && appDay.Month == currentDate.Month)
@@ -224,11 +219,20 @@ namespace ActivityMonitor
 
 
                     daysList[(appDay.Day - 1) + (firstDay - 1)].Children.Add(activity);
+                    if(dataType == "activity")
+                    {
+                        activity.Background = new SolidColorBrush(Colors.BlueViolet);
+                    }
+                    else if(dataType == "meal")
+                    {
+                        activity.Background = new SolidColorBrush(Colors.GreenYellow);
+                    }
                 }
                 else
                 {
                     continue;
                 }
+
             }
         }
         
@@ -239,7 +243,6 @@ namespace ActivityMonitor
                 $"{currentDate.Year.ToString()}-{currentDate.Month.ToString()}-{label.Content.ToString()}";
             DateTime date = DateTime.Parse(dateString);
             GanttWindow ganttView = new GanttWindow(date);
-            //GanttWindow ganttView = new GanttWindow();
             ganttView.Show();
         }
 
