@@ -165,6 +165,8 @@ namespace ActivityMonitor
                 lab.Content = i - startDayAtPanel + 1;
                 lab.VerticalAlignment = VerticalAlignment.Top;
                 lab.HorizontalContentAlignment = HorizontalAlignment.Right;
+                lab.Cursor = Cursors.Hand;
+                lab.MouseDown += new MouseButtonEventHandler(this.panelClick);
                 daysList[i - 1].Children.Add(lab);
 
             }
@@ -238,9 +240,9 @@ namespace ActivityMonitor
         
         private void panelClick(object sender, RoutedEventArgs e)
         {
-            var label = ((StackPanel) sender).Children.OfType<Label>().FirstOrDefault();
+            var label = (Label) sender;
             string dateString =
-                $"{currentDate.Year.ToString()}-{currentDate.Month.ToString()}-{label.Content.ToString()}";
+                $"{currentDate.Year.ToString()}-{currentDate.Month.ToString()}-{label.Content}";
             DateTime date = DateTime.Parse(dateString);
             GanttWindow ganttView = new GanttWindow(date);
             ganttView.Show();
