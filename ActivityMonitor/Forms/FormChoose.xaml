@@ -12,7 +12,7 @@
 		</Grid.ColumnDefinitions>
 		<Label Content="What kind of activity do to you want to add?" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="32" Width="449" FontSize="16"/>
 		<ComboBox x:Name="cbxChoose" HorizontalAlignment="Left" Margin="16,47,0,0" VerticalAlignment="Top" Width="192">
-			<ComboBoxItem Content="Physical activity"/>
+			<ComboBoxItem Content="Training"/>
 			<ComboBoxItem Content="Meal"/>
 		</ComboBox>
 		<Button x:Name="btnOK" Content="OK" HorizontalAlignment="Left" Margin="230,47,0,0" VerticalAlignment="Top" Width="49" Height="22" FontSize="14" Click="BtnOK_Click"/>

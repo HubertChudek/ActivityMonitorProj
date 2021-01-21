@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Media;
+using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
 
 namespace ActivityMonitor.Forms
@@ -32,11 +33,10 @@ namespace ActivityMonitor.Forms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GantLenght = 1;
-            //dateTimePicker.Value = DateTime.Parse("2012-02-01");
+            GantLenght = 24;
             dateTimePicker.Value = startUpDate;
             DateTime minDate = (DateTime)dateTimePicker.Value;
-            DateTime maxDate = minDate.AddDays(GantLenght);
+            DateTime maxDate = minDate.AddHours(GantLenght);
 
             // Set selection -mode
             ganttControl1.TaskSelectionMode = nGantt.GanttControl.SelectionMode.Single;
@@ -67,14 +67,17 @@ namespace ActivityMonitor.Forms
             MessageBox.Show("New clicked for task " + ganttTask.Name);
         }
 
+
         private void EditClicked(GanttTask ganttTask)
         {
-            MessageBox.Show("Edit clicked for task " + ganttTask.Name);
+            //MessageBox.Show("Edit clicked for task " + ganttTask.Name);
+            ShowEventDetail(ganttTask.AppID, ganttTask.Table);
         }
 
         private void DeleteClicked(GanttTask ganttTask)
         {
-            MessageBox.Show("Delete clicked for task " + ganttTask.Name);
+            //MessageBox.Show("Delete clicked for task " + ganttTask.Name);
+            DeleteActivity(ganttTask.AppID, ganttTask.Table);
         }
 
         private void ganttControl1_GanttRowAreaSelected(object sender, PeriodEventArgs e)
@@ -92,6 +95,50 @@ namespace ActivityMonitor.Forms
             {
                 return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent);
             }
+        }
+
+        private void ShowEventDetail(int appID, string table)
+        {
+            string sql = $"SELECT * FROM {table} WHERE ID = {appID}";
+            DatabaseManager dbManager = new DatabaseManager();
+            DataTable dt = dbManager.QueryAsDataTable(sql);
+
+            if (dt.Rows.Count > 0)
+            {
+                DataRow row = dt.Rows[0];
+                if (table == "activity")
+                {
+                    FormActivityWindow eventForm = new FormActivityWindow(appID);
+                    eventForm.FillFieldsFromDataRow(row);
+                    eventForm.Show();
+                }
+                else if (table == "meal")
+                {
+                    FormMealWindow eventForm = new FormMealWindow(appID);
+                    eventForm.FillFieldsFromDataRow(row);
+                    eventForm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("No such table");
+                }
+            }
+        }
+
+        private void DeleteActivity(int id, string table)
+        {
+            MessageBoxResult confirmResult = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure to delete?",
+                "Please confirm.",
+                MessageBoxButton.YesNo);
+            if (confirmResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            string sql =
+                $"delete from {table} where ID = {id}";
+            var dbManager = new DatabaseManager() ;
+            bool deleteStatus = dbManager.InsertUpdateDelete(sql);
         }
 
         private void CreateData(DateTime minDate, DateTime maxDate)
@@ -125,6 +172,7 @@ namespace ActivityMonitor.Forms
                 string date = dataRow["AppDate"].ToString();
                 string startTime = dataRow["StartTime"].ToString();
                 string endTime = dataRow["EndTime"].ToString();
+                string id = dataRow["ID"].ToString();
 
                 DateTime startDay = DateTime.Parse(startTime);
                 DateTime entDay = DateTime.Parse(endTime);
@@ -143,9 +191,28 @@ namespace ActivityMonitor.Forms
                     Start = startDay,
                     End = entDay,
                     Name = eventName,
-                    TaskProgressVisibility = System.Windows.Visibility.Hidden
+                    Table = tableName,
+                    AppID = Int32.Parse(id)
                 });
             }
+        }
+
+        private void DateTimePicker_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            DateTime minDate = (DateTime)dateTimePicker.Value;
+            DateTime maxDate = minDate.AddHours(GantLenght);
+            ganttControl1.ClearGantt();
+            CreateData(minDate, maxDate);
+        }
+
+        private void BtnPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            dateTimePicker.Value = ganttControl1.GanttData.MinDate.AddHours(-GantLenght);
+        }
+
+        private void BtnNext_Click(object sender, EventArgs e)
+        {
+            dateTimePicker.Value = ganttControl1.GanttData.MaxDate;
         }
 
         private string FormatYear(Period period)
@@ -171,24 +238,6 @@ namespace ActivityMonitor.Forms
         private string FormatHour(Period period)
         {
             return period.Start.Hour.ToString();
-        }
-
-        private void BtnPrevious_Click(object sender, RoutedEventArgs e)
-        {
-            dateTimePicker.Value = ganttControl1.GanttData.MinDate.AddDays(-GantLenght);
-        }
-
-        private void BtnNext_Click(object sender, EventArgs e)
-        {
-            dateTimePicker.Value = ganttControl1.GanttData.MaxDate;
-        }
-
-        private void DateTimePicker_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            DateTime minDate = (DateTime)dateTimePicker.Value;
-            DateTime maxDate = minDate.AddDays(GantLenght);
-            ganttControl1.ClearGantt();
-            CreateData(minDate, maxDate);
         }
     }
 }
