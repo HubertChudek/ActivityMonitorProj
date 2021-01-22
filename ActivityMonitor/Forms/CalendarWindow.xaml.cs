@@ -126,7 +126,7 @@ namespace ActivityMonitor
                 wrap = new StackPanel();
                 wrap.Name = $"wrap{i}"; 
                 wrap.Width = 200;   
-                wrap.Height = 120;
+                wrap.Height = 130;
 
                 border = new Border();
                 border.Name = $"border{i}";
@@ -177,18 +177,18 @@ namespace ActivityMonitor
                 lab.MouseDown += new MouseButtonEventHandler(this.panelClick);
                 daysList[i - 1].Children.Add(lab);
             }
+
+            string format = "dd-MM-yyyy";
+            DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            String sqlActivity = $"SELECT * FROM activity WHERE AppDate BETWEEN #{startDate.ToString(format)}# AND #{endDate.ToString(format)}#";
+            String sqlMeal = $"SELECT * FROM meal WHERE AppDate BETWEEN #{startDate.ToString(format)}# AND #{endDate.ToString(format)}#";
+
+            dtActivity = dm.QueryAsDataTable(sqlActivity);
+            dtMeal = dm.QueryAsDataTable(sqlMeal);
             //przypisanie aktywnosci do danego dnia
             for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
             {
-                string format = "dd-MM-yyyy";
-                DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
-                DateTime endDate = startDate.AddMonths(1).AddDays(-1);
-                String sqlActivity = $"SELECT * FROM activity WHERE AppDate BETWEEN #{startDate.ToString(format)}# AND #{endDate.ToString(format)}#";
-                String sqlMeal = $"SELECT * FROM meal WHERE AppDate BETWEEN #{startDate.ToString(format)}# AND #{endDate.ToString(format)}#";
-
-                dtActivity = dm.QueryAsDataTable(sqlActivity);
-                dtMeal = dm.QueryAsDataTable(sqlMeal);
-
                 addActivity(dtActivity, "activity", i, firstDayAtWrapNumber);
                 addActivity(dtMeal, "meal", i, firstDayAtWrapNumber);
             }
