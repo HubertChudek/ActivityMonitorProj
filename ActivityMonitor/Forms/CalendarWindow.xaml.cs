@@ -127,9 +127,6 @@ namespace ActivityMonitor
                 wrap.Name = $"wrap{i}"; 
                 wrap.Width = 200;   
                 wrap.Height = 120;
-                //wrap.Cursor = Cursors.Cross;
-                //wrap.MouseDown += new MouseButtonEventHandler(this.ButtonAddActivity_Click);
-
 
                 border = new Border();
                 border.Name = $"border{i}";
@@ -141,16 +138,6 @@ namespace ActivityMonitor
 
                 daysPanel.Children.Add(border);
                 daysList.Add(wrap);
-/*
-                foreach (Object obj in daysList[i - 1].Children)
-                {
-                    if (obj is Label)
-                    {
-                        daysList[i - 1].Cursor = Cursors.Cross;
-                        daysList[i - 1].MouseDown += new MouseButtonEventHandler(this.ButtonAddActivity_Click);
-                    }
-                }
-*/
             }
         }
 
