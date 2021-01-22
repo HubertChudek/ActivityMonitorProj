@@ -160,9 +160,9 @@ namespace ActivityMonitor.Forms
         //metoda inicjalizuje wartości kontrolek domyślną wartością
         private void InitializeControlsValues()
         {
-            dtpDate.SelectedDate = DateTime.Today;
             tpStartTime.Value = DateTime.Now;
-            tpEndTime.Value = DateTime.Now.AddHours(1);
+            tpEndTime.Value = DateTime.Now.AddHours(0.5);
+            dtpDate.SelectedDate = DateTime.Today;
             if (AppId == 0)
             {
                 btnDelete.Visibility = Visibility.Collapsed;

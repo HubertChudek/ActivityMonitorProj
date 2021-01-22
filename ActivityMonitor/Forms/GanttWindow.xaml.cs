@@ -175,6 +175,7 @@ namespace ActivityMonitor.Forms
                 string startTime = dataRow["StartTime"].ToString();
                 string endTime = dataRow["EndTime"].ToString();
                 string id = dataRow["ID"].ToString();
+                string eventColor = eventColor = Colors.Beige.ToString(); ;
 
                 DateTime startDay = DateTime.Parse(startTime);
                 DateTime entDay = DateTime.Parse(endTime);
@@ -182,10 +183,12 @@ namespace ActivityMonitor.Forms
                 if (tableName == "activity")
                 {
                     eventName = dataRow["Type"].ToString();
+                    eventColor = Colors.DeepSkyBlue.ToString();
                 }
                 else if (tableName == "meal")
                 {
                     eventName = dataRow["Type"].ToString() + ": " + dataRow["MealName"].ToString();
+                    eventColor = Colors.GreenYellow.ToString();
                 }
 
                 ganttControl1.AddGanttTask(row, new GanttTask()
@@ -194,7 +197,8 @@ namespace ActivityMonitor.Forms
                     End = entDay,
                     Name = eventName,
                     Table = tableName,
-                    AppID = int.Parse(id)
+                    AppID = int.Parse(id),
+                    Color = eventColor
                 });
             }
         }
