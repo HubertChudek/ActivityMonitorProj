@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ActivityMonitor"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.CalendarWindow"
         mc:Ignorable="d"
-        Title="CalendarWindow" Width="1416" Height="1000" Closed="Window_Closed" SizeToContent="Height">
+        Title="CalendarWindow" Width="1416" Height="1000" Closed="Window_Closed" SizeToContent="Height" GotKeyboardFocus="Window_GotKeyboardFocus">
     <Grid>
         <DockPanel LastChildFill="False" RenderTransformOrigin="0.5,0.5" Margin="0,0,422,861">
             <Label x:Name="labelMonthAndYear" Content="Styczeń, 2018" Height="108" VerticalAlignment="Top" Width="407" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>

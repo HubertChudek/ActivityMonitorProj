@@ -229,7 +229,7 @@ namespace ActivityMonitor
 
                     if (dataType == "activity")
                     {
-                        activity.Background = new SolidColorBrush(Colors.Blue);
+                        activity.Background = new SolidColorBrush(Colors.DeepSkyBlue);
                     }
                     else if(dataType == "meal")
                     {
@@ -282,6 +282,11 @@ namespace ActivityMonitor
         private void Window_Closed(object sender, EventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            DisplayCurrentDate();
         }
     }
 }
