@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.OleDb;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Markup;
+using ExToolkit = Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
-using ExToolkit  = Xceed.Wpf.Toolkit;
 
 namespace ActivityMonitor.Forms
 {
@@ -38,7 +33,7 @@ namespace ActivityMonitor.Forms
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
-            var nutri = new NutritionixControl();
+            NutritionixControl nutri = new NutritionixControl();
             Nutritionix.Item foo = nutri.LookupNutritionInfo(txtName.Text);
 
             PopulateFormFields(foo);
@@ -165,9 +160,9 @@ namespace ActivityMonitor.Forms
         //metoda inicjalizuje wartości kontrolek domyślną wartością
         private void InitializeControlsValues()
         {
-            dtpDate.SelectedDate = DateTime.Today;
             tpStartTime.Value = DateTime.Now;
-            tpEndTime.Value = DateTime.Now.AddHours(1);
+            tpEndTime.Value = DateTime.Now.AddHours(0.5);
+            dtpDate.SelectedDate = DateTime.Today;
             if (AppId == 0)
             {
                 btnDelete.Visibility = Visibility.Collapsed;
@@ -194,7 +189,7 @@ namespace ActivityMonitor.Forms
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             dbManager.cn.Close();
-            this.Close();
+            Close();
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -211,15 +206,29 @@ namespace ActivityMonitor.Forms
 
         public void FillFieldsFromDataRow(DataRow dataRow)
         {
-            this.AppId = Int32.Parse(dataRow["ID"].ToString());
-            this.dtpDate.SelectedDate = DateTime.Parse(dataRow["AppDate"].ToString());
-            this.tpStartTime.Value = DateTime.Parse(dataRow["StartTime"].ToString());
-            this.tpEndTime.Value = DateTime.Parse(dataRow["EndTime"].ToString());
-            this.cbxType.Text = dataRow["Type"].ToString();
-            this.txtCalories.Text = dataRow["Calories"].ToString();
-            this.txtName.Text = dataRow["MealName"].ToString();
-            this.txtQuantity.Text = dataRow["Quantity"].ToString();
-            this.cbxUnit.Text = dataRow["Unit"].ToString();
+            AppId = int.Parse(dataRow["ID"].ToString());
+            dtpDate.SelectedDate = DateTime.Parse(dataRow["AppDate"].ToString());
+            tpStartTime.Value = DateTime.Parse(dataRow["StartTime"].ToString());
+            tpEndTime.Value = DateTime.Parse(dataRow["EndTime"].ToString());
+            cbxType.Text = dataRow["Type"].ToString();
+            txtCalories.Text = dataRow["Calories"].ToString();
+            txtName.Text = dataRow["MealName"].ToString();
+            txtQuantity.Text = dataRow["Quantity"].ToString();
+            cbxUnit.Text = dataRow["Unit"].ToString();
+        }
+
+        private DateTime CombineDateAndTime(DateTime date, DateTime time)
+        {
+            return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0);
+        }
+
+        private void DtpDate_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (dtpDate.SelectedDate.HasValue)
+            {
+                tpStartTime.Value = CombineDateAndTime(dtpDate.SelectedDate.Value, (DateTime)tpStartTime.Value);
+                tpEndTime.Value = CombineDateAndTime(dtpDate.SelectedDate.Value, (DateTime)tpEndTime.Value);
+            }
         }
     }
 }

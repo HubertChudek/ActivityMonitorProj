@@ -9,7 +9,7 @@
         Title="FormActivityWindow" Height="285.225" Width="398.18" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
 	<Grid Loaded="Grid_Loaded">
 		<Label Content="Date" HorizontalAlignment="Left" Margin="40,27,0,0" VerticalAlignment="Top"/>
-		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207"/>
+		<DatePicker x:Name="dtpDate" HorizontalAlignment="Left" Margin="144,29,0,0" VerticalAlignment="Top" Width="207" Background="White" SelectedDateChanged="DtpDate_SelectedDateChanged"/>
 		<Label Content="Start Time" HorizontalAlignment="Left" Margin="40,76,0,0" VerticalAlignment="Top"/>
 		<Label Content="End Time" HorizontalAlignment="Left" Margin="40,107,0,0" VerticalAlignment="Top"/>
 		<Label Content="Type" HorizontalAlignment="Left" Margin="40,154,0,0" VerticalAlignment="Top"/>

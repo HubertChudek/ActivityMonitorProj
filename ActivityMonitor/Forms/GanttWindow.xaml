@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ActivityMonitor.Forms"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:nGantt="clr-namespace:nGantt;assembly=nGantt" x:Class="ActivityMonitor.Forms.GanttWindow"
         mc:Ignorable="d"
-        Title="GanttWindow" Height="494" Width="800" Loaded="Window_Loaded">
+        Title="GanttWindow" Height="494" Width="800" Loaded="Window_Loaded" GotKeyboardFocus="Window_GotKeyboardFocus">
 	<Grid>
 		<Button x:Name="btnPrevious" Content="&lt;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnPrevious_Click"/>
 		<Button x:Name="btnNext" Content="&gt;" HorizontalAlignment="Left" Margin="349,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnNext_Click"/>

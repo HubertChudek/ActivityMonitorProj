@@ -134,9 +134,9 @@ namespace ActivityMonitor.Forms
         //metoda inicjalizuje wartości kontrolek domyślną wartością
         private void InitializeControlsValues()
         {
-            dtpDate.SelectedDate = DateTime.Today;
             tpStartTime.Value = DateTime.Now;
-            tpEndTime.Value = DateTime.Now.AddHours(1);
+            tpEndTime.Value = DateTime.Now.AddHours(0.5);
+            dtpDate.SelectedDate = DateTime.Today;
             if (AppId == 0)
             {
                 btnDelete.Visibility = Visibility.Collapsed;
@@ -169,6 +169,20 @@ namespace ActivityMonitor.Forms
             tpStartTime.Value = DateTime.Parse(dataRow["StartTime"].ToString());
             tpEndTime.Value = DateTime.Parse(dataRow["EndTime"].ToString());
             cbxType.Text = dataRow["Type"].ToString();
+        }
+
+        private DateTime CombineDateAndTime(DateTime date, DateTime time)
+        {
+            return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0);
+        }
+
+        private void DtpDate_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (dtpDate.SelectedDate.HasValue)
+            {
+                tpStartTime.Value = CombineDateAndTime(dtpDate.SelectedDate.Value, (DateTime)tpStartTime.Value);
+                tpEndTime.Value = CombineDateAndTime(dtpDate.SelectedDate.Value, (DateTime)tpEndTime.Value);
+            }
         }
     }
 }

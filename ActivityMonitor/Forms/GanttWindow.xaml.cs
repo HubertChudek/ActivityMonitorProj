@@ -4,9 +4,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
-using Xceed.Wpf.Toolkit;
 using MessageBox = System.Windows.MessageBox;
+using ExToolkit = Xceed.Wpf.Toolkit;
 
 namespace ActivityMonitor.Forms
 {
@@ -28,7 +29,7 @@ namespace ActivityMonitor.Forms
         public GanttWindow(DateTime calendarDate)
         {
             InitializeComponent();
-            this.startUpDate = calendarDate;
+            startUpDate = calendarDate;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -78,6 +79,7 @@ namespace ActivityMonitor.Forms
         {
             //MessageBox.Show("Delete clicked for task " + ganttTask.Name);
             DeleteActivity(ganttTask.AppID, ganttTask.Table);
+            Keyboard.ClearFocus();
         }
 
         private void ganttControl1_GanttRowAreaSelected(object sender, PeriodEventArgs e)
@@ -89,11 +91,11 @@ namespace ActivityMonitor.Forms
         {
             if (timeLineItem.End.Date.DayOfWeek == DayOfWeek.Saturday || timeLineItem.End.Date.DayOfWeek == DayOfWeek.Sunday)
             {
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightBlue);
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightCoral);
             }
             else
             {
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent);
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightSteelBlue);
             }
         }
 
@@ -127,7 +129,7 @@ namespace ActivityMonitor.Forms
 
         private void DeleteActivity(int id, string table)
         {
-            MessageBoxResult confirmResult = Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure to delete?",
+            MessageBoxResult confirmResult = ExToolkit.MessageBox.Show("Are you sure to delete?",
                 "Please confirm.",
                 MessageBoxButton.YesNo);
             if (confirmResult != MessageBoxResult.Yes)
@@ -137,8 +139,8 @@ namespace ActivityMonitor.Forms
 
             string sql =
                 $"delete from {table} where ID = {id}";
-            var dbManager = new DatabaseManager() ;
-            bool deleteStatus = dbManager.InsertUpdateDelete(sql);
+            DatabaseManager dbManager = new DatabaseManager();
+            dbManager.InsertUpdateDelete(sql);
         }
 
         private void CreateData(DateTime minDate, DateTime maxDate)
@@ -173,6 +175,7 @@ namespace ActivityMonitor.Forms
                 string startTime = dataRow["StartTime"].ToString();
                 string endTime = dataRow["EndTime"].ToString();
                 string id = dataRow["ID"].ToString();
+                string eventColor = eventColor = Colors.Beige.ToString(); ;
 
                 DateTime startDay = DateTime.Parse(startTime);
                 DateTime entDay = DateTime.Parse(endTime);
@@ -180,10 +183,12 @@ namespace ActivityMonitor.Forms
                 if (tableName == "activity")
                 {
                     eventName = dataRow["Type"].ToString();
+                    eventColor = Colors.DeepSkyBlue.ToString();
                 }
                 else if (tableName == "meal")
                 {
                     eventName = dataRow["Type"].ToString() + ": " + dataRow["MealName"].ToString();
+                    eventColor = Colors.GreenYellow.ToString();
                 }
 
                 ganttControl1.AddGanttTask(row, new GanttTask()
@@ -192,14 +197,28 @@ namespace ActivityMonitor.Forms
                     End = entDay,
                     Name = eventName,
                     Table = tableName,
-                    AppID = Int32.Parse(id)
+                    AppID = int.Parse(id),
+                    Color = eventColor
                 });
             }
         }
 
         private void DateTimePicker_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            DateTime minDate = (DateTime)dateTimePicker.Value;
+            RefreshEvents(); ;
+        }
+
+        private void Window_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            if (ganttControl1.IsLoaded)
+            {
+                RefreshEvents();
+            }
+        }
+
+        private void RefreshEvents()
+        {
+            DateTime minDate = (DateTime) dateTimePicker.Value;
             DateTime maxDate = minDate.AddHours(GantLenght);
             ganttControl1.ClearGantt();
             CreateData(minDate, maxDate);
