@@ -7,30 +7,51 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ActivityMonitor.CalendarWindow"
         mc:Ignorable="d"
         Title="CalendarWindow" Width="1416" Height="1000" Closed="Window_Closed" SizeToContent="Height" GotKeyboardFocus="Window_GotKeyboardFocus">
-    <Grid>
-        <DockPanel LastChildFill="False" RenderTransformOrigin="0.5,0.5" Margin="0,0,422,861">
-            <Label x:Name="labelMonthAndYear" Content="Styczeń, 2018" Height="108" VerticalAlignment="Top" Width="407" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        </DockPanel>
+	<Grid>
+		<DockPanel LastChildFill="False" RenderTransformOrigin="0.5,0.5" Margin="0,0,422,861">
+			<Label x:Name="labelMonthAndYear" Content="Styczeń, 2018" Height="108" VerticalAlignment="Top" Width="407" FontSize="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+		</DockPanel>
 
-        <DockPanel Height="49" LastChildFill="False" Margin="0,108,0,0" VerticalAlignment="Top">
-            <Label x:Name="labelMonday" Content="Monday" Height="49" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold" Background="#FFD85C5C"/>
-            <Label x:Name="labelTuesday" Content="Tuesday" Height="49" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold" Background="#FF4AA846"/>
-            <Label x:Name="labelWednesday" Content="Wednesday" Height="49" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold" Background="#FF31DCC5"/>
-            <Label x:Name="labelThursday" Content="Thursday" Height="49" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold" Background="#FFC13CC7"/>
-            <Label x:Name="labelFriday" Content="Friday" Height="49" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold" Background="#FFE8CD23"/>
-            <Label x:Name="labelSaturday" Content="Saturday" Height="49" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold" Background="#FF4818C9"/>
-            <Label x:Name="labelSunday" Content="Sunday" Height="49" VerticalAlignment="Top" Width="208" FontSize="20" FontWeight="Bold" Background="#FF4BD616"/>
-        </DockPanel>
+		<DockPanel Height="46" LastChildFill="False" Margin="0,108,0,0" VerticalAlignment="Top">
+			<Border BorderBrush="Black"
+			        BorderThickness="2">
+				<Label x:Name="labelMonday" Content="Monday" Height="46" VerticalAlignment="Top" Width="196" FontSize="20" FontWeight="Bold" Background="#FFFFFFB9" />
+			</Border>
+			<Border BorderBrush="Black"
+			        BorderThickness="2">
+				<Label x:Name="labelTuesday" Content="Tuesday" Height="46" VerticalAlignment="Top" Width="196" FontSize="20" FontWeight="Bold" Background="#FFFDD3F5"/>
+			</Border>
+			<Border BorderBrush="Black"
+			        BorderThickness="2">
+				<Label x:Name="labelWednesday" Content="Wednesday" Height="46" VerticalAlignment="Top" Width="196" FontSize="20" FontWeight="Bold" Background="#FFFFFFB9"/>
+			</Border>
+			<Border BorderBrush="Black"
+			        BorderThickness="2">
+				<Label x:Name="labelThursday" Content="Thursday" Height="46" VerticalAlignment="Top" Width="196" FontSize="20" FontWeight="Bold" Background="#FFFDD3F5"/>
+			</Border>
+			<Border BorderBrush="Black"
+			        BorderThickness="2">
+				<Label x:Name="labelFriday" Content="Friday" Height="46" VerticalAlignment="Top" Width="196" FontSize="20" FontWeight="Bold" Background="#FFFFFFB9"/>
+			</Border>
+			<Border BorderBrush="Black"
+			        BorderThickness="2">
+				<Label x:Name="labelSaturday" Content="Saturday" Height="46" VerticalAlignment="Top" Width="196" FontSize="20" FontWeight="Bold" Background="#FFFF9090"/>
+			</Border>
+			<Border BorderBrush="Black"
+			        BorderThickness="2">
+				<Label x:Name="labelSunday" Content="Sunday" Height="46" VerticalAlignment="Top" Width="208" FontSize="20" FontWeight="Bold" Background="#FFFF9090"/>
+			</Border>
+		</DockPanel>
 
-        <WrapPanel x:Name="daysPanel" Margin="0,157,0,0"/>
+		<WrapPanel x:Name="daysPanel" Margin="0,157,0,0"/>
 
-        <WrapPanel Height="108" Margin="859,0,0,0" VerticalAlignment="Top">
-            <Button x:Name="buttonPrevMonth" Content="&lt;" Width="100" FontWeight="Bold" FontSize="18" Click="ButtonPrevMonth_Click"/>
-            <Button x:Name="buttonToday" Content="Today" Width="100" FontSize="18" FontWeight="Bold" Height="109" Click="ButtonToday_Click"/>
-            <Button x:Name="buttonNextMonth" Content="&gt;" Width="100" FontSize="18" FontWeight="Bold" Height="109" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ButtonNextMonth_Click"/>
-            <Button x:Name="buttonAddActivity" Content="Add activity" Width="114" FontSize="18" FontWeight="Bold" Click="ButtonAddActivity_Click"/>
-            <Button x:Name="buttonAddMeal" Content="Add meal" Width="114" Click="ButtonAddMeal_Click" FontSize="18" FontWeight="Bold"/>
-        </WrapPanel>
+		<WrapPanel Height="108" Margin="859,0,0,0" VerticalAlignment="Top">
+			<Button x:Name="buttonPrevMonth" Content="&lt;" Width="100" FontWeight="Bold" FontSize="18" Click="ButtonPrevMonth_Click"/>
+			<Button x:Name="buttonToday" Content="Today" Width="100" FontSize="18" FontWeight="Bold" Height="109" Click="ButtonToday_Click"/>
+			<Button x:Name="buttonNextMonth" Content="&gt;" Width="100" FontSize="18" FontWeight="Bold" Height="109" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ButtonNextMonth_Click"/>
+			<Button x:Name="buttonAddActivity" Content="Add activity" Width="114" FontSize="18" FontWeight="Bold" Click="ButtonAddActivity_Click"/>
+			<Button x:Name="buttonAddMeal" Content="Add meal" Width="114" Click="ButtonAddMeal_Click" FontSize="18" FontWeight="Bold"/>
+		</WrapPanel>
 
-    </Grid>
+	</Grid>
 </Window>
