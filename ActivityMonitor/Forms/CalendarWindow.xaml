@@ -24,11 +24,12 @@
 
         <WrapPanel x:Name="daysPanel" Margin="0,157,0,0"/>
 
-        <WrapPanel Height="108" Margin="973,0,0,0" VerticalAlignment="Top">
+        <WrapPanel Height="108" Margin="859,0,0,0" VerticalAlignment="Top">
             <Button x:Name="buttonPrevMonth" Content="&lt;" Width="100" FontWeight="Bold" FontSize="18" Click="ButtonPrevMonth_Click"/>
             <Button x:Name="buttonToday" Content="Today" Width="100" FontSize="18" FontWeight="Bold" Height="109" Click="ButtonToday_Click"/>
             <Button x:Name="buttonNextMonth" Content="&gt;" Width="100" FontSize="18" FontWeight="Bold" Height="109" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ButtonNextMonth_Click"/>
-            <Button x:Name="buttonAddEvent" Content="Add activity" Width="114" FontSize="18" FontWeight="Bold" Click="ButtonAddEvent_Click"/>
+            <Button x:Name="buttonAddActivity" Content="Add activity" Width="114" FontSize="18" FontWeight="Bold" Click="ButtonAddActivity_Click"/>
+            <Button x:Name="buttonAddMeal" Content="Add meal" Width="114" Click="ButtonAddMeal_Click" FontSize="18" FontWeight="Bold"/>
         </WrapPanel>
 
     </Grid>

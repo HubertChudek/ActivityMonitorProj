@@ -48,11 +48,17 @@ namespace ActivityMonitor
         //metoda dodająca nową aktywnosc
         private void AddNewActivity()
         {
-            ActivityMonitor.Forms.FormChoose chooseWindow = new Forms.FormChoose();
+            FormActivityWindow chooseWindow = new Forms.FormActivityWindow();
             chooseWindow.ShowDialog();
             DisplayCurrentDate();
         }
-    
+
+        private void AddNewMeal()
+        {
+            ActivityMonitor.Forms.FormMealWindow chooseWindow = new Forms.FormMealWindow();
+            chooseWindow.ShowDialog();
+            DisplayCurrentDate();
+        }
         //metoda zwracająca pierwszy dzień miesiąca
         private int GetFirstDayOfCurrentDate()
         {
@@ -79,7 +85,7 @@ namespace ActivityMonitor
             int totalDays = GetTotalDaysOfCurrentDate() + GetFirstDayOfCurrentDate() - 1;
             labelMonthAndYear.Content = currentDate.ToString("MMMM, yyyy");
             AddDayLabelToWrap(firstDayAtWrapNumber, totalDays);
-            colorCurrentDay(firstDayAtWrapNumber, totalDays);  
+            //colorCurrentDay(firstDayAtWrapNumber, totalDays);  
         }
 
         //metoda ustawuająca miesiąc na poprzedni
@@ -112,6 +118,7 @@ namespace ActivityMonitor
             daysList.Clear();
             StackPanel wrap;
             Border border;
+            Ellipse circle;
 
             for (int i = 1; i <= totalDays; i++)
             {
@@ -120,8 +127,8 @@ namespace ActivityMonitor
                 wrap.Name = $"wrap{i}"; 
                 wrap.Width = 200;   
                 wrap.Height = 120;
-                //wrap.Cursor = Cursors.Hand;
-                //wrap.MouseDown += new MouseButtonEventHandler(this.panelClick);
+                //wrap.Cursor = Cursors.Cross;
+                //wrap.MouseDown += new MouseButtonEventHandler(this.ButtonAddActivity_Click);
 
 
                 border = new Border();
@@ -134,8 +141,17 @@ namespace ActivityMonitor
 
                 daysPanel.Children.Add(border);
                 daysList.Add(wrap);
+/*
+                foreach (Object obj in daysList[i - 1].Children)
+                {
+                    if (obj is Label)
+                    {
+                        daysList[i - 1].Cursor = Cursors.Cross;
+                        daysList[i - 1].MouseDown += new MouseButtonEventHandler(this.ButtonAddActivity_Click);
+                    }
+                }
+*/
             }
-
         }
 
         //metoda dodająca labele z numerami dni miesiąca
@@ -161,6 +177,11 @@ namespace ActivityMonitor
             {
                 lab = new Label();
                 lab.Background = Brushes.Aqua;
+                if (i - startDayAtPanel + 1 == DateTime.Today.Day && currentDate.Month == month)
+                {
+                    
+                    lab.Background = new SolidColorBrush(Colors.Red);
+                }
                 lab.Name = $"lblDay{i - startDayAtPanel + 1}";
                 lab.Content = i - startDayAtPanel + 1;
                 lab.VerticalAlignment = VerticalAlignment.Top;
@@ -168,7 +189,6 @@ namespace ActivityMonitor
                 lab.Cursor = Cursors.Hand;
                 lab.MouseDown += new MouseButtonEventHandler(this.panelClick);
                 daysList[i - 1].Children.Add(lab);
-
             }
             //przypisanie aktywnosci do danego dnia
             for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
@@ -186,21 +206,6 @@ namespace ActivityMonitor
                 addActivity(dtMeal, "meal", i, firstDayAtWrapNumber);
             }
         }
-        
-        //metoda kolorująca dzisiejszy dzien na wskazany kolor
-        private void colorCurrentDay(int startDayAtPanel, int totalDaysInMonth)
-        {
-            StackPanel stack = new StackPanel();
-
-            for (int i = startDayAtPanel; i <= totalDaysInMonth; i++)
-            {
-                if (i == DateTime.Today.Day && currentDate.Month == month)
-                {
-                    stack = daysList[(i - 1) + (startDayAtPanel - 1)];
-                    stack.Background = new SolidColorBrush(Colors.Purple);
-                }
-            }
-        }
 
         //metoda wyświetlająca aktywnosci w kalendarzu
         private void addActivity(DataTable dt, string dataType, int iterator, int firstDay)
@@ -212,18 +217,19 @@ namespace ActivityMonitor
                 if (appDay.Day == iterator && appDay.Month == currentDate.Month)
                 {
                     Button activity = new Button();
-                    activity.Height = 30;
+                    activity.Height = 20;
                     activity.Width = 100;
                     //activity.Name = $"activity{row["ID"]}";
                     activity.Content = row["Type"];
+                    activity.VerticalContentAlignment = VerticalAlignment.Center;
                     activity.HorizontalAlignment = HorizontalAlignment.Center;
                     activity.VerticalAlignment = VerticalAlignment.Bottom;
 
-
                     daysList[(appDay.Day - 1) + (firstDay - 1)].Children.Add(activity);
-                    if(dataType == "activity")
+
+                    if (dataType == "activity")
                     {
-                        activity.Background = new SolidColorBrush(Colors.BlueViolet);
+                        activity.Background = new SolidColorBrush(Colors.Blue);
                     }
                     else if(dataType == "meal")
                     {
@@ -263,9 +269,14 @@ namespace ActivityMonitor
             Today();
         }
 
-        private void ButtonAddEvent_Click(object sender, RoutedEventArgs e)
+        private void ButtonAddActivity_Click(object sender, RoutedEventArgs e)
         {
             AddNewActivity();
+        }
+
+        private void ButtonAddMeal_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewMeal();
         }
 
         private void Window_Closed(object sender, EventArgs e)
