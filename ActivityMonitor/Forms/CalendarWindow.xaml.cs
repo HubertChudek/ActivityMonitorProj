@@ -126,12 +126,12 @@ namespace ActivityMonitor
                 wrap = new StackPanel();
                 wrap.Name = $"wrap{i}"; 
                 wrap.Width = 200;   
-                wrap.Height = 130;
+                wrap.Height = 140;
 
                 border = new Border();
                 border.Name = $"border{i}";
                 border.Width = 200;
-                border.Height = 120;
+                border.Height = 142;
                 border.BorderBrush = Brushes.Black;
                 border.BorderThickness = new Thickness(1);
                 border.Child = wrap;
@@ -171,6 +171,7 @@ namespace ActivityMonitor
                 }
                 lab.Name = $"lblDay{i - startDayAtPanel + 1}";
                 lab.Content = i - startDayAtPanel + 1;
+                lab.Height = 30;
                 lab.VerticalAlignment = VerticalAlignment.Top;
                 lab.HorizontalContentAlignment = HorizontalAlignment.Right;
                 lab.Cursor = Cursors.Hand;
@@ -197,6 +198,7 @@ namespace ActivityMonitor
         //metoda wyświetlająca aktywnosci w kalendarzu
         private void addActivity(DataTable dt, string dataType, int iterator, int firstDay)
         {
+            double totalHeight = 0;
             foreach (DataRow row in dt.Rows)
             {   
                 String date = row["AppDate"].ToString();
@@ -206,13 +208,43 @@ namespace ActivityMonitor
                     Button activity = new Button();
                     activity.Height = 20;
                     activity.Width = 100;
+                    
                     //activity.Name = $"activity{row["ID"]}";
                     activity.Content = row["Type"];
-                    activity.VerticalContentAlignment = VerticalAlignment.Center;
+                    activity.VerticalContentAlignment = VerticalAlignment.Top;
                     activity.HorizontalAlignment = HorizontalAlignment.Center;
-                    activity.VerticalAlignment = VerticalAlignment.Bottom;
 
-                    daysList[(appDay.Day - 1) + (firstDay - 1)].Children.Add(activity);
+                    foreach (Object child in daysList[(appDay.Day - 1) + (firstDay - 1)].Children)
+                    {
+                        if (child is Label)
+                        {
+                            totalHeight += (child as Label).Height;
+                        } 
+                        else if (child is Button)
+                        {
+                            totalHeight += (child as Button).Height;
+                        }
+                    }
+                    if(totalHeight + activity.Height <= daysList[(appDay.Day - 1) + (firstDay - 1)].Height)
+                    {
+                        daysList[(appDay.Day - 1) + (firstDay - 1)].Children.Add(activity);
+                        totalHeight = 0;
+                    }
+                    else 
+                    {
+                        Label label = new Label();
+                        label.Content = "000";
+                        label.FontSize = 8;
+                        label.Padding = new Thickness(0);
+                        label.HorizontalContentAlignment = HorizontalAlignment.Center;
+                        label.VerticalContentAlignment = VerticalAlignment.Top;
+
+                        label.Height = 20;// daysList[(appDay.Day - 1) + (firstDay - 1)].Height - totalHeight;
+                        daysList[(appDay.Day - 1) + (firstDay - 1)].Children.Add(label);
+                        daysList[(appDay.Day - 1) + (firstDay - 1)].Children.Add(activity);
+                        totalHeight = 0;
+
+                    }
 
                     if (dataType == "activity")
                     {
@@ -227,7 +259,6 @@ namespace ActivityMonitor
                 {
                     continue;
                 }
-
             }
         }
         
